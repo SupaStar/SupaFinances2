@@ -1,0 +1,49 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/
+!*.xcodeproj/project.pbxproj
+*.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+
+# Swift
+# Add this line to ignore the whole `Pods` directory if you're using 
+CocoaPods
+# Pods/
+Pods/
+# Carthage
+# Add this line to ignore the `Carthage/Build` directory if you're using 
+Carthage
+# Carthage/Build/
+
+# SPM
+# Add this line to ignore the `Packages` directory if you're using Swift 
+Package Manager
+# Packages/
+
+# Generated files
+*.hmap
+*.ipa
+*.xcarchive
+*.dSYM.zip
+*.dSYM
+
+# Dependencies
+.Packages/
+.swiftpm/
+Cartfile.resolved
+
+# Package Manager
+.llvm
+.build/
+
+# SwiftPM
+Package.resolved
+
+# macOS directory attributes
+__MACOSX/
