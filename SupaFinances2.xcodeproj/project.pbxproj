@@ -16,6 +16,9 @@
 		096647B32A8D537C00D8E147 /* SupaFinances2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096647B22A8D537C00D8E147 /* SupaFinances2Tests.swift */; };
 		096647BD2A8D537C00D8E147 /* SupaFinances2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096647BC2A8D537C00D8E147 /* SupaFinances2UITests.swift */; };
 		096647BF2A8D537C00D8E147 /* SupaFinances2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096647BE2A8D537C00D8E147 /* SupaFinances2UITestsLaunchTests.swift */; };
+		09E6A10C2A8D83C500927CAC /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10B2A8D83C500927CAC /* StockView.swift */; };
+		09E6A10E2A8D8A2500927CAC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10D2A8D8A2500927CAC /* Constant.swift */; };
+		09E6A1102A8D901A00927CAC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10F2A8D901A00927CAC /* LoadingView.swift */; };
 		221006F89A1157CAB5E688F7 /* Pods_SupaFinances2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994B56794C00A99A996B0923 /* Pods_SupaFinances2.framework */; };
 		30A414A726D475D6B3BD24B3 /* Pods_SupaFinances2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFB49098A6AEB6A0531A4EC /* Pods_SupaFinances2Tests.framework */; };
 		94CFA5E66898F0B9FE75CA04 /* Pods_SupaFinances2_SupaFinances2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEB7D6E05C6F7CBDBB66BB1 /* Pods_SupaFinances2_SupaFinances2UITests.framework */; };
@@ -52,6 +55,9 @@
 		096647B82A8D537C00D8E147 /* SupaFinances2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SupaFinances2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		096647BC2A8D537C00D8E147 /* SupaFinances2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupaFinances2UITests.swift; sourceTree = "<group>"; };
 		096647BE2A8D537C00D8E147 /* SupaFinances2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupaFinances2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		09E6A10B2A8D83C500927CAC /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
+		09E6A10D2A8D8A2500927CAC /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		09E6A10F2A8D901A00927CAC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		299C9C25B4BBE13295954FAF /* Pods-SupaFinances2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2Tests.release.xcconfig"; path = "Target Support Files/Pods-SupaFinances2Tests/Pods-SupaFinances2Tests.release.xcconfig"; sourceTree = "<group>"; };
 		38A30A31ACEDEA94CAFFB933 /* Pods-SupaFinances2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2.debug.xcconfig"; path = "Target Support Files/Pods-SupaFinances2/Pods-SupaFinances2.debug.xcconfig"; sourceTree = "<group>"; };
 		7C54A4A8257D28966BD00A40 /* Pods-SupaFinances2-SupaFinances2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2-SupaFinances2UITests.debug.xcconfig"; path = "Target Support Files/Pods-SupaFinances2-SupaFinances2UITests/Pods-SupaFinances2-SupaFinances2UITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,7 +106,6 @@
 				08D47BF976345FDA520E1106 /* Pods-SupaFinances2Tests.debug.xcconfig */,
 				299C9C25B4BBE13295954FAF /* Pods-SupaFinances2Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -131,7 +136,10 @@
 			children = (
 				096647A02A8D537C00D8E147 /* Assets.xcassets */,
 				096647CC2A8D539700D8E147 /* App */,
+				096647CF2A8D55CB00D8E147 /* Network */,
 				096647CB2A8D538900D8E147 /* Model */,
+				096647CE2A8D55BC00D8E147 /* Utility */,
+				096647CD2A8D55AD00D8E147 /* View */,
 				096647A22A8D537C00D8E147 /* Preview Content */,
 			);
 			path = SupaFinances2;
@@ -178,6 +186,30 @@
 				0966479E2A8D537B00D8E147 /* ContentView.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		096647CD2A8D55AD00D8E147 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				09E6A10B2A8D83C500927CAC /* StockView.swift */,
+				09E6A10F2A8D901A00927CAC /* LoadingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		096647CE2A8D55BC00D8E147 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				09E6A10D2A8D8A2500927CAC /* Constant.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		096647CF2A8D55CB00D8E147 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		8232BB458FDAEA1B67219F19 /* Frameworks */ = {
@@ -392,10 +424,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09E6A10C2A8D83C500927CAC /* StockView.swift in Sources */,
 				096647A92A8D537C00D8E147 /* SupaFinances2.xcdatamodeld in Sources */,
 				096647A62A8D537C00D8E147 /* Persistence.swift in Sources */,
 				0966479F2A8D537B00D8E147 /* ContentView.swift in Sources */,
 				0966479D2A8D537B00D8E147 /* SupaFinances2App.swift in Sources */,
+				09E6A1102A8D901A00927CAC /* LoadingView.swift in Sources */,
+				09E6A10E2A8D8A2500927CAC /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
