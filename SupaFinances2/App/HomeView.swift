@@ -10,13 +10,13 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct HomeView: View {
     // MARK: PROPERTIES
-    
+    @EnvironmentObject private var finances: Finances
+    @ObservedObject var viewModel: HomeViewModel
+
     @Environment(\.managedObjectContext) private var viewContext
-    
-    @State private var isLoading: Bool = false
-    
+        
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
@@ -32,6 +32,9 @@ struct ContentView: View {
         ZStack {
             NavigationView {
                 List {
+                    Text("\(viewModel.usdValue?.base ?? "")")
+                    Text("\(viewModel.usdValue?.rates.MXN ?? 0)")
+
                     ForEach(stocks){ stock in
                         Text(stock.market_value!,formatter: marketValueFormatter)
                         Text(stock.name ?? "")
@@ -40,10 +43,10 @@ struct ContentView: View {
                 }//: LIST
                 
             }//: NAV
-            if (isLoading) {
-                LoadingView()
-            }
         }//: ZSTACK
+        .onAppear(){
+            viewModel.loadUsdValue()
+        }
     }
 
     private func addItem() {
@@ -76,8 +79,10 @@ struct ContentView: View {
 
 
 
-struct ContentView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        HomeView(viewModel: HomeViewModel(isPreview: true))
+            .environmentObject(Finances())
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

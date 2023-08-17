@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0966479D2A8D537B00D8E147 /* SupaFinances2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */; };
-		0966479F2A8D537B00D8E147 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479E2A8D537B00D8E147 /* ContentView.swift */; };
+		0966479F2A8D537B00D8E147 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479E2A8D537B00D8E147 /* HomeView.swift */; };
 		096647A12A8D537C00D8E147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096647A02A8D537C00D8E147 /* Assets.xcassets */; };
 		096647A42A8D537C00D8E147 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096647A32A8D537C00D8E147 /* Preview Assets.xcassets */; };
 		096647A62A8D537C00D8E147 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096647A52A8D537C00D8E147 /* Persistence.swift */; };
@@ -19,6 +19,12 @@
 		09E6A10C2A8D83C500927CAC /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10B2A8D83C500927CAC /* StockView.swift */; };
 		09E6A10E2A8D8A2500927CAC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10D2A8D8A2500927CAC /* Constant.swift */; };
 		09E6A1102A8D901A00927CAC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10F2A8D901A00927CAC /* LoadingView.swift */; };
+		09E6A1122A8E9E3400927CAC /* DivisasService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A1112A8E9E3400927CAC /* DivisasService.swift */; };
+		09E6A1142A8E9EFE00927CAC /* UsdMxnModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A1132A8E9EFE00927CAC /* UsdMxnModel.swift */; };
+		09E6A1172A8EA08300927CAC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A1162A8EA08300927CAC /* HomeViewModel.swift */; };
+		09E6A1192A8EABAB00927CAC /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A1182A8EABAB00927CAC /* IndexView.swift */; };
+		09E6A11B2A8EB23B00927CAC /* Finances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A11A2A8EB23B00927CAC /* Finances.swift */; };
+		09E6A11D2A8EC0CF00927CAC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A11C2A8EC0CF00927CAC /* SearchView.swift */; };
 		221006F89A1157CAB5E688F7 /* Pods_SupaFinances2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994B56794C00A99A996B0923 /* Pods_SupaFinances2.framework */; };
 		30A414A726D475D6B3BD24B3 /* Pods_SupaFinances2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFB49098A6AEB6A0531A4EC /* Pods_SupaFinances2Tests.framework */; };
 		94CFA5E66898F0B9FE75CA04 /* Pods_SupaFinances2_SupaFinances2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEB7D6E05C6F7CBDBB66BB1 /* Pods_SupaFinances2_SupaFinances2UITests.framework */; };
@@ -45,7 +51,7 @@
 		08D47BF976345FDA520E1106 /* Pods-SupaFinances2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2Tests.debug.xcconfig"; path = "Target Support Files/Pods-SupaFinances2Tests/Pods-SupaFinances2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		096647992A8D537B00D8E147 /* SupaFinances2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaFinances2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupaFinances2App.swift; sourceTree = "<group>"; };
-		0966479E2A8D537B00D8E147 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0966479E2A8D537B00D8E147 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		096647A02A8D537C00D8E147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		096647A32A8D537C00D8E147 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		096647A52A8D537C00D8E147 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -58,6 +64,12 @@
 		09E6A10B2A8D83C500927CAC /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
 		09E6A10D2A8D8A2500927CAC /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		09E6A10F2A8D901A00927CAC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		09E6A1112A8E9E3400927CAC /* DivisasService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisasService.swift; sourceTree = "<group>"; };
+		09E6A1132A8E9EFE00927CAC /* UsdMxnModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsdMxnModel.swift; sourceTree = "<group>"; };
+		09E6A1162A8EA08300927CAC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		09E6A1182A8EABAB00927CAC /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
+		09E6A11A2A8EB23B00927CAC /* Finances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finances.swift; sourceTree = "<group>"; };
+		09E6A11C2A8EC0CF00927CAC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		299C9C25B4BBE13295954FAF /* Pods-SupaFinances2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2Tests.release.xcconfig"; path = "Target Support Files/Pods-SupaFinances2Tests/Pods-SupaFinances2Tests.release.xcconfig"; sourceTree = "<group>"; };
 		38A30A31ACEDEA94CAFFB933 /* Pods-SupaFinances2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2.debug.xcconfig"; path = "Target Support Files/Pods-SupaFinances2/Pods-SupaFinances2.debug.xcconfig"; sourceTree = "<group>"; };
 		7C54A4A8257D28966BD00A40 /* Pods-SupaFinances2-SupaFinances2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupaFinances2-SupaFinances2UITests.debug.xcconfig"; path = "Target Support Files/Pods-SupaFinances2-SupaFinances2UITests/Pods-SupaFinances2-SupaFinances2UITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +152,7 @@
 				096647CB2A8D538900D8E147 /* Model */,
 				096647CE2A8D55BC00D8E147 /* Utility */,
 				096647CD2A8D55AD00D8E147 /* View */,
+				09E6A1152A8EA06C00927CAC /* ViewModel */,
 				096647A22A8D537C00D8E147 /* Preview Content */,
 			);
 			path = SupaFinances2;
@@ -175,6 +188,7 @@
 			children = (
 				096647A52A8D537C00D8E147 /* Persistence.swift */,
 				096647A72A8D537C00D8E147 /* SupaFinances2.xcdatamodeld */,
+				09E6A1132A8E9EFE00927CAC /* UsdMxnModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,7 +197,9 @@
 			isa = PBXGroup;
 			children = (
 				0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */,
-				0966479E2A8D537B00D8E147 /* ContentView.swift */,
+				0966479E2A8D537B00D8E147 /* HomeView.swift */,
+				09E6A1182A8EABAB00927CAC /* IndexView.swift */,
+				09E6A11C2A8EC0CF00927CAC /* SearchView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -201,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				09E6A10D2A8D8A2500927CAC /* Constant.swift */,
+				09E6A11A2A8EB23B00927CAC /* Finances.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -208,8 +225,17 @@
 		096647CF2A8D55CB00D8E147 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				09E6A1112A8E9E3400927CAC /* DivisasService.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		09E6A1152A8EA06C00927CAC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				09E6A1162A8EA08300927CAC /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		8232BB458FDAEA1B67219F19 /* Frameworks */ = {
@@ -427,10 +453,16 @@
 				09E6A10C2A8D83C500927CAC /* StockView.swift in Sources */,
 				096647A92A8D537C00D8E147 /* SupaFinances2.xcdatamodeld in Sources */,
 				096647A62A8D537C00D8E147 /* Persistence.swift in Sources */,
-				0966479F2A8D537B00D8E147 /* ContentView.swift in Sources */,
+				09E6A1192A8EABAB00927CAC /* IndexView.swift in Sources */,
+				09E6A1122A8E9E3400927CAC /* DivisasService.swift in Sources */,
+				0966479F2A8D537B00D8E147 /* HomeView.swift in Sources */,
+				09E6A1172A8EA08300927CAC /* HomeViewModel.swift in Sources */,
 				0966479D2A8D537B00D8E147 /* SupaFinances2App.swift in Sources */,
+				09E6A11D2A8EC0CF00927CAC /* SearchView.swift in Sources */,
+				09E6A11B2A8EB23B00927CAC /* Finances.swift in Sources */,
 				09E6A1102A8D901A00927CAC /* LoadingView.swift in Sources */,
 				09E6A10E2A8D8A2500927CAC /* Constant.swift in Sources */,
+				09E6A1142A8E9EFE00927CAC /* UsdMxnModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
