@@ -30,9 +30,7 @@ class DivisasService {
             
             do {
                 let exchangeRateResponse = try JSONDecoder().decode(ExchangeRateResponse.self, from: data)
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 completion(exchangeRateResponse)
-                //                })
             } catch {
                 print("Error al decodificar JSON: \(error)")
             }

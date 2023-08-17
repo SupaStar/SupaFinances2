@@ -10,15 +10,9 @@
 import Foundation
 
 class HomeViewModel: ObservableObject {
-    @Published public var usdValue: ExchangeViewModel?
+    @Published public private(set) var usdValue: ExchangeViewModel?
+    @Published public private(set) var isLoading: Bool = false
     private let dataService: DivisasService = DivisasService()
-    var showLoader: (()-> Void)?
-
-    func loader() {
-        if let showLoader = self.showLoader {
-            showLoader()
-        }
-    }
     
     init(usdValue: ExchangeViewModel? = nil, isPreview: Bool) {
         self.usdValue = usdValue
@@ -31,13 +25,13 @@ class HomeViewModel: ObservableObject {
     }
     
     func loadUsdValue() {
-//        finances.isLoading = true
+        isLoading = true
         usdValue = nil
         dataService.getUsdToMxn(completion: { response in
             let exchangeVM = ExchangeViewModel(exchange: response)
             DispatchQueue.main.async {
                 self.usdValue = exchangeVM
-//                self.finances.isLoading = false
+                self.isLoading = false
             }
         })
     }

@@ -11,27 +11,24 @@ import SwiftUI
 
 struct IndexView: View {
     // MARK: PROPERTIES
-    @EnvironmentObject private var finances: Finances
 
     // MARK: BODY
     var body: some View {
-        ZStack {
-            TabView {
-                HomeView(viewModel: HomeViewModel(isPreview: false))
-                    .tabItem{
-                        Label("Inicio", systemImage: "house.fill")
-                    }
-            }//: TABS
-            if finances.isLoading {
-                LoadingView()
-            }
-        }//: ZSTACK
+        TabView {
+            HomeView(viewModel: HomeViewModel(isPreview: false))
+                .tabItem{
+                    Label("Inicio", systemImage: "house.fill")
+                }
+            SearchView()
+                .tabItem{
+                    Label("Prueba", systemImage: "magnifyingglass")
+                }
+        }//: TABS
     }
 }
 
 struct IndexView_Previews: PreviewProvider {
     static var previews: some View {
         IndexView()
-            .environmentObject(Finances())
     }
 }

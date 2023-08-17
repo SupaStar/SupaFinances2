@@ -12,7 +12,6 @@ import CoreData
 
 struct HomeView: View {
     // MARK: PROPERTIES
-    @EnvironmentObject private var finances: Finances
     @ObservedObject var viewModel: HomeViewModel
 
     @Environment(\.managedObjectContext) private var viewContext
@@ -41,8 +40,10 @@ struct HomeView: View {
                     }
                     .onDelete(perform: deleteItems)
                 }//: LIST
-                
             }//: NAV
+            if viewModel.isLoading{
+                LoadingView()
+            }
         }//: ZSTACK
         .onAppear(){
             viewModel.loadUsdValue()
@@ -82,7 +83,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(viewModel: HomeViewModel(isPreview: true))
-            .environmentObject(Finances())
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
