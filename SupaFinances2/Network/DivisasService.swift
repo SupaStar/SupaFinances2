@@ -15,9 +15,12 @@ class DivisasService {
     
     func getUsdToMxn(completion: @escaping((ExchangeRateResponse) -> Void)) {
         dataTask?.cancel()
-        let apiURL = URL(string: dolarMxn)
+        guard let apiURL = URL(string: urlDolarMxn) else{
+            print("Error al obtener la url")
+            return
+        }
         
-        dataTask = URLSession.shared.dataTask(with: apiURL!) { (data, response, error) in
+        dataTask = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
             if let error = error {
                 print("Error al realizar la solicitud: \(error)")
                 return

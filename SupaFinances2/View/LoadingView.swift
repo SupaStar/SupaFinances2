@@ -49,9 +49,12 @@ struct LoaderPage: View {
     var body: some View {
         VStack(spacing: 20) {
             ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.blue))
+                .scaleEffect(2)
+                .padding(.top, 10)
             Text("Cargando")
         }//: VSTACK
-        .padding()
+        .padding(40)
         .background(
             .gray
         )

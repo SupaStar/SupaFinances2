@@ -16,9 +16,9 @@ func urlMexico(serie:String) -> String {
     return "https://api.databursatil.com/v1/precios?token=7691abe453d7a49c098b345eabfea0&emisora_serie=\(serie)&bolsa=BMV,BIVA"
 }
 
-let dolarMxn = "https://api.exchangerate.host/latest?base=USD&symbols=MXN"
+let urlDolarMxn = "https://api.exchangerate.host/latest?base=USD&symbols=MXN"
 
-let busqueda = "https://twelve-data1.p.rapidapi.com/symbol_search"
+let urlbusqueda = "https://twelve-data1.p.rapidapi.com/symbol_search"
 
 func urlUSA(serie: String) -> String {
     return "https://realstonks.p.rapidapi.com/\(serie)"
