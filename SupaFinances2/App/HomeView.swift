@@ -13,9 +13,9 @@ import CoreData
 struct HomeView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HomeViewModel
-
+    
     @Environment(\.managedObjectContext) private var viewContext
-        
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
@@ -25,22 +25,43 @@ struct HomeView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Stock.id, ascending: true)],
         animation: .default)
     private var stocks: FetchedResults<Stock>
-
+    
     // MARK: BODY
     var body: some View {
         ZStack {
-            NavigationView {
-                List {
-                    Text("\(viewModel.usdValue?.base ?? "")")
-                    Text("\(viewModel.usdValue?.rates.MXN ?? 0)")
-
-                    ForEach(stocks){ stock in
-                        Text(stock.market_value!,formatter: marketValueFormatter)
-                        Text(stock.name ?? "")
-                    }
-                    .onDelete(perform: deleteItems)
-                }//: LIST
-            }//: NAV
+            VStack {
+                HeaderHomeView()
+                
+                TitleSectionView(title: "Mis acciones")
+                NavigationView {
+                    List {
+                        Text("\(viewModel.usdValue?.base ?? "")")
+                        Text("\(viewModel.usdValue?.rates.MXN ?? 0)")
+                        
+                        ForEach(stocks){ stock in
+                            Text(stock.market_value!,formatter: marketValueFormatter)
+                            Text(stock.name ?? "")
+                        }
+                        .onDelete(perform: deleteItems)
+                    }//: LIST
+                }//: NAV
+                .navigationTitle("Mis acciones")
+                
+                Button(action: {
+                    
+                }, label: {
+                    Text("+")
+                        .font(.system(.largeTitle, design: .rounded))
+                        .foregroundColor(textColor)
+                        .offset(x: 0, y: -4)
+                })
+                .frame(width: 60, height: 60)
+                .background(primaryColor)
+                .clipShape(Circle())
+                .contentShape(Circle())
+                .padding()
+            }//: VSTACK
+            
             if viewModel.isLoading{
                 LoadingView()
             }
@@ -49,12 +70,12 @@ struct HomeView: View {
             viewModel.loadUsdValue()
         }
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -63,11 +84,11 @@ struct HomeView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {

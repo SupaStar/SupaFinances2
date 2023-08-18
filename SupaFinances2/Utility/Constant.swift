@@ -9,12 +9,14 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 
 // API
 func urlMexico(serie:String) -> String {
     return "https://api.databursatil.com/v1/precios?token=7691abe453d7a49c098b345eabfea0&emisora_serie=\(serie)&bolsa=BMV,BIVA"
 }
+
 
 let urlDolarMxn = "https://api.exchangerate.host/latest?base=USD&symbols=MXN"
 
@@ -23,6 +25,13 @@ let urlbusqueda = "https://twelve-data1.p.rapidapi.com/symbol_search"
 func urlUSA(serie: String) -> String {
     return "https://realstonks.p.rapidapi.com/\(serie)"
 }
+
+
+// UI
+let primaryColor: Color = Color("Primary")
+let textColor: Color = Color("Text")
+
+
 // DATA
 func sampleStock() -> Stock {
     let fmty = Stock()
