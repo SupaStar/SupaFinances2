@@ -34,13 +34,17 @@ class HomeViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.usdValue = exchangeVM
                 self.isLoading = false
+//                self.pruebaBusqueda()
             }
         })
     }
     
     func pruebaBusqueda(){
         isLoading = true
-        self.pruebas.searchStocks(search: "fmty", completion: { response in
+        self.pruebas.searchStocks(search: "fmty", completion: { (response, error) in
+            if let error = error {
+                print(error)
+            }
             print("busqueda \(response)")
             DispatchQueue.main.async {
                 self.isLoading = false
@@ -50,7 +54,15 @@ class HomeViewModel: ObservableObject {
     }
     func pruebaMexico(){
         isLoading = true
-        self.pruebas.showMexicanStock(stockSymbol: "fmty14", completion: { response in
+        self.pruebas.showMexicanStock(stockSymbol: "fmty14", completion: { (response, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let response = response else {
+                return
+            }
             print("mexico \(response)")
             DispatchQueue.main.async {
                 self.isLoading = false
@@ -60,7 +72,15 @@ class HomeViewModel: ObservableObject {
     }
     func pruebaUsa(){
         isLoading = true
-        self.pruebas.showUsaStock(stockSymbol: "voo", completion: { response in
+        self.pruebas.showUsaStock(stockSymbol: "voo", completion: { (response, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let response = response else {
+                return
+            }
             print("usa \(response)")
             DispatchQueue.main.async {
                 self.isLoading = false

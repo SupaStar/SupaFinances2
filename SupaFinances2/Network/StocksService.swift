@@ -14,12 +14,12 @@ class StocksService {
     private var dataTask: URLSessionDataTask?
     
     // MARK: PETITION TO SEARCH STOCKS
-    func searchStocks(search: String, completion: @escaping( ([UsaStockSearch]) -> Void)){
+    func searchStocks(search: String, completion: @escaping( ([UsaStockSearch], String?) -> Void)){
 
         dataTask?.cancel()
         
         guard let url = buildUrl(forTerm: search) else {
-          completion([])
+          completion([], "Ocurrio un error al consumir el servicio")
           return
         }
 
@@ -42,8 +42,9 @@ class StocksService {
             
             do {
                 let searchResponse = try JSONDecoder().decode(UsaStockSearchResponse.self, from: data)
-                completion(searchResponse.data)
+                completion(searchResponse.data, nil)
             } catch {
+                completion([], "Ocurrio un error al obtener la informacion.")
                 print("Error al decodificar JSON: \(error)")
             }
         }
@@ -51,7 +52,7 @@ class StocksService {
     }
     
     // MARK: SHOW DATA MEXICAN STOCK
-    func showMexicanStock(stockSymbol: String, completion: @escaping( (MexicanStock) -> Void)) {
+    func showMexicanStock(stockSymbol: String, completion: @escaping( (MexicanStock?, String?) -> Void)) {
         dataTask?.cancel()
         
         guard let apiURL = URL(string: urlMexico(serie: stockSymbol)) else {
@@ -73,8 +74,9 @@ class StocksService {
             do {
                 print(String(data: data, encoding: .utf8)!)
                 let mexicanStockDetail = try JSONDecoder().decode(MexicanStockResponse.self, from: data)
-                completion(mexicanStockDetail.BMV)
+                completion(mexicanStockDetail.BMV, nil)
             } catch {
+                completion(nil, "Ocurrio un error al obtener la informacion.")
                 print("Error al decodificar JSON: \(error)")
             }
         }
@@ -82,7 +84,7 @@ class StocksService {
     }
     
     // MARK: SHOW DATA USA STOCK
-    func showUsaStock(stockSymbol: String, completion: @escaping( (UsaStockResponse) -> Void )){
+    func showUsaStock(stockSymbol: String, completion: @escaping( (UsaStockResponse?, String?) -> Void )){
         dataTask?.cancel()
         
         guard let apiURL = URL(string: urlUSA(serie: stockSymbol)) else {
@@ -108,8 +110,9 @@ class StocksService {
             
             do {
                 let usaStock = try JSONDecoder().decode(UsaStockResponse.self, from: data)
-                completion(usaStock)
+                completion(usaStock, nil)
             } catch {
+                completion(nil, "Ocurrio un error al obtener la informacion.")
                 print("Error al decodificar JSON: \(error)")
             }
         }
