@@ -12,14 +12,29 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published public private(set) var usdValue: ExchangeViewModel?
     @Published public private(set) var isLoading: Bool = false
+    @Published var stocks: [Stock] = []
+    @Published var holds: [Holding] = []
     private let dataService: DivisasService = DivisasService()
     private let pruebas: StocksService = StocksService()
-
+    private let stockServ = StockService()
+    
     init(usdValue: ExchangeViewModel? = nil, isPreview: Bool) {
         self.usdValue = usdValue
         if isPreview {
             self.loadPreviewData()
         }
+        loadStocks()
+    }
+    func loadStocks(){
+//        stockServ.addStock(name: "Dhanhos", marketVal: 22, symbol: "Dhanhos")
+        stocks = stockServ.savedStocks
+        testHold()
+    }
+    
+    func testHold() {
+        var stock = stocks[0]
+        holds = stock.holds?.allObjects as! [Holding]
+//        stockServ.addHold(stock: stock, ammount: 100.0, quantity: 30)
     }
     
     func loadPreviewData(){

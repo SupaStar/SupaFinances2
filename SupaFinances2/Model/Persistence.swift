@@ -15,7 +15,7 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "SupaFinances2")
+        container = NSPersistentContainer(name: "SupaFinancesContainer")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -41,13 +41,13 @@ struct PersistenceController {
         fmty.dateAdd = Date()
         fmty.market_value = 11.49
         fmty.name = "Fibra Monterrey"
-        fmty.nomenclature = "FMTY14"
+        fmty.symbol = "FMTY14"
         let danhos = Stock(context: viewContext)
         danhos.id = UUID()
         danhos.dateAdd = Date()
         danhos.market_value = 20.82
         danhos.name = "Fibra Danhos"
-        danhos.nomenclature = "DANHOS13"
+        danhos.symbol = "DANHOS13"
         do {
             try viewContext.save()
         } catch {

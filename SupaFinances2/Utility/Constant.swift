@@ -39,7 +39,7 @@ func sampleStock() -> Stock {
     fmty.dateAdd = Date()
     fmty.market_value = 11.49
     fmty.name = "Fibra Monterrey"
-    fmty.nomenclature = "FMTY14"
+    fmty.symbol = "FMTY14"
     return fmty
 }
 

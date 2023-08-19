@@ -16,15 +16,15 @@ struct HomeView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Stock.id, ascending: true)],
-        animation: .default)
-    private var stocks: FetchedResults<Stock>
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+//        animation: .default)
+//    private var items: FetchedResults<Item>
+//
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Stock.id, ascending: true)],
+//        animation: .default)
+//    private var stocks: FetchedResults<Stock>
     
     // MARK: BODY
     var body: some View {
@@ -38,11 +38,19 @@ struct HomeView: View {
                         Text("\(viewModel.usdValue?.base ?? "")")
                         Text("\(viewModel.usdValue?.rates.MXN ?? 0)")
                         
-                        ForEach(stocks){ stock in
-                            Text(stock.market_value!,formatter: marketValueFormatter)
+                        ForEach(viewModel.stocks){
+                            stock in
                             Text(stock.name ?? "")
                         }
-                        .onDelete(perform: deleteItems)
+                        ForEach(viewModel.holds) {
+                            hold in
+                            Text("\(hold.ammount )")
+                        }
+//                        ForEach(stocks){ stock in
+//                            Text(stock.market_value!,formatter: marketValueFormatter)
+//                            Text(stock.name ?? "")
+//                        }
+//                        .onDelete(perform: deleteItems)
                     }//: LIST
                 }//: NAV
                 .navigationTitle("Mis acciones")
@@ -71,32 +79,32 @@ struct HomeView: View {
         }
     }
     
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
+//    private func addItem() {
+//        withAnimation {
+//            let newItem = Item(context: viewContext)
+//            newItem.timestamp = Date()
+//
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+//    }
     
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
+//    private func deleteItems(offsets: IndexSet) {
+//        withAnimation {
+//            offsets.map { items[$0] }.forEach(viewContext.delete)
+//
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+//    }
 }
 
 
