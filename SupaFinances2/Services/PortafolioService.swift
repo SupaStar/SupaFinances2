@@ -53,9 +53,39 @@ class PortafolioService {
         entity.hold_date = hold_date
         entity.date = Date()
         stock.addToHolds(entity)
+        refreshStockData(stock: stock)
+    }
+    
+    func removeAllStocks(){
+        for savedStock in savedStocks {
+            container.viewContext.delete(savedStock)
+        }
         applyChanges()
     }
+    
+    func deleteStocks(stocks: [StockEntity]){
+        for stock in stocks {
+            container.viewContext.delete(stock)
+        }
+        applyChanges()
+    }
+    
     // MARK: PRIVATE
+    
+    private func refreshStockData(stock: StockEntity){
+        if let holds = stock.holds {
+            let savedHolds = holds.allObjects as! [HoldingEntity]
+            var totalPrice: Double = 0
+            var totalQuantity: Double = 0
+            for hold in savedHolds {
+                totalPrice += hold.price
+                totalQuantity += hold.quantity
+            }
+            stock.price_prom = totalPrice / Double(savedHolds.count)
+            stock.quantity = totalQuantity
+            applyChanges()
+        }
+    }
     
     private func getPortfolio(){
         let request = NSFetchRequest<PortafolioEntity>(entityName: entityName)
@@ -63,6 +93,7 @@ class PortafolioService {
             portFolios = try container.viewContext.fetch(request)
             if portFolios.isEmpty {
                 addPortfolio(name: "Inversiones")
+                getPortfolio()
             } else {
                 getStocks()
             }
@@ -79,11 +110,12 @@ class PortafolioService {
     }
     
     private func getStocks() {
-        let request = NSFetchRequest<StockEntity>(entityName: stockEntityName)
-        do {
-            savedStocks = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error fetching Portfolio Entities. \(error)")
+        if portFolios.count == 0 {
+            return
+        }
+        let portfolio = portFolios[0]
+        if let stocks = portfolio.stocks {
+            savedStocks = stocks.allObjects as! [StockEntity]
         }
     }
     

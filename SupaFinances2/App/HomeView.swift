@@ -13,9 +13,7 @@ import CoreData
 struct HomeView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HomeViewModel
-    
-    @Environment(\.managedObjectContext) private var viewContext
-    
+        
 //    @FetchRequest(
 //        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
 //        animation: .default)
@@ -35,17 +33,11 @@ struct HomeView: View {
                 TitleSectionView(title: "Mis acciones")
                 NavigationView {
                     List {
-                        Text("\(viewModel.usdValue?.base ?? "")")
-                        Text("\(viewModel.usdValue?.rates.MXN ?? 0)")
-                        
                         ForEach(viewModel.stocks){
                             stock in
-                            Text(stock.name ?? "")
+                            StockItemView(title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
                         }
-                        ForEach(viewModel.holds) {
-                            hold in
-                            Text("\(hold.price )")
-                        }
+                        .onDelete(perform: viewModel.deleteStock(offsets:))
 //                        ForEach(stocks){ stock in
 //                            Text(stock.market_value!,formatter: marketValueFormatter)
 //                            Text(stock.name ?? "")

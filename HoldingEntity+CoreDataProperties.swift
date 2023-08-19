@@ -18,11 +18,11 @@ extension HoldingEntity {
         return NSFetchRequest<HoldingEntity>(entityName: "HoldingEntity")
     }
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var quantity: Double
-    @NSManaged public var price: Double
-    @NSManaged public var hold_date: Date?
     @NSManaged public var date: Date?
+    @NSManaged public var hold_date: Date?
+    @NSManaged public var id: UUID?
+    @NSManaged public var price: Double
+    @NSManaged public var quantity: Double
     @NSManaged public var stock: StockEntity?
 
 }

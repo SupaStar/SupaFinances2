@@ -27,19 +27,26 @@ class HomeViewModel: ObservableObject {
         loadStocks()
     }
     func loadStocks(){
+//        portafolioServ.removeAllStocks()
         self.portfolio = portafolioServ.portFolios[0]
         guard let portfolio = self.portfolio else {
             return
         }
-//        portafolioServ.addStock(name: "Dhanhos", marketVal: 22, symbol: "Dhanhos", country: "MX", portfolio: portfolio)
+//        portafolioServ.addStock(name: "MTy", marketVal: 11.44, symbol: "mty15", country: "MX", portfolio: portfolio)
         stocks = portafolioServ.savedStocks
         testHold()
     }
     
     func testHold() {
-        var stock = stocks[0]
-        portafolioServ.addHold(stock: stock, price: 200.0, quantity: 30, hold_date: Date())
-        holds = stock.holds?.allObjects as! [HoldingEntity]
+        let stock = stocks[0]
+//        portafolioServ.addHold(stock: stock, price: 15, quantity: 10, hold_date: Date())
+//        holds = stock.holds?.allObjects as! [HoldingEntity]
+    }
+    
+    func deleteStock(offsets: IndexSet) {
+        let selectedStocks = offsets.map { stocks[$0] }
+//        portafolioServ.deleteStocks(stocks: selectedStocks)
+        print(selectedStocks)
     }
     
     func loadPreviewData(){

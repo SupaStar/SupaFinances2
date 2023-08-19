@@ -18,13 +18,15 @@ extension StockEntity {
         return NSFetchRequest<StockEntity>(entityName: "StockEntity")
     }
 
+    @NSManaged public var added_date: Date?
+    @NSManaged public var country: String?
     @NSManaged public var name: String?
     @NSManaged public var symbol: String?
     @NSManaged public var value: Double
-    @NSManaged public var added_date: Date?
-    @NSManaged public var country: String?
-    @NSManaged public var portfolio: PortafolioEntity?
+    @NSManaged public var price_prom: Double
+    @NSManaged public var quantity: Double
     @NSManaged public var holds: NSSet?
+    @NSManaged public var portfolio: PortafolioEntity?
 
 }
 
