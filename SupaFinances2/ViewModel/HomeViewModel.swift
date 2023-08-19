@@ -12,11 +12,12 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published public private(set) var usdValue: ExchangeViewModel?
     @Published public private(set) var isLoading: Bool = false
-    @Published var stocks: [Stock] = []
-    @Published var holds: [Holding] = []
+    @Published var stocks: [StockEntity] = []
+    @Published var holds: [HoldingEntity] = []
+    @Published var portfolio: PortafolioEntity?
     private let dataService: DivisasService = DivisasService()
     private let pruebas: StocksService = StocksService()
-    private let stockServ = StockService()
+    private let portafolioServ = PortafolioService()
     
     init(usdValue: ExchangeViewModel? = nil, isPreview: Bool) {
         self.usdValue = usdValue
@@ -26,15 +27,19 @@ class HomeViewModel: ObservableObject {
         loadStocks()
     }
     func loadStocks(){
-//        stockServ.addStock(name: "Dhanhos", marketVal: 22, symbol: "Dhanhos")
-        stocks = stockServ.savedStocks
+        self.portfolio = portafolioServ.portFolios[0]
+        guard let portfolio = self.portfolio else {
+            return
+        }
+//        portafolioServ.addStock(name: "Dhanhos", marketVal: 22, symbol: "Dhanhos", country: "MX", portfolio: portfolio)
+        stocks = portafolioServ.savedStocks
         testHold()
     }
     
     func testHold() {
         var stock = stocks[0]
-        holds = stock.holds?.allObjects as! [Holding]
-//        stockServ.addHold(stock: stock, ammount: 100.0, quantity: 30)
+        portafolioServ.addHold(stock: stock, price: 200.0, quantity: 30, hold_date: Date())
+        holds = stock.holds?.allObjects as! [HoldingEntity]
     }
     
     func loadPreviewData(){

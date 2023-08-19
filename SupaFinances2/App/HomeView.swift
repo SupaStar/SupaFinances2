@@ -44,7 +44,7 @@ struct HomeView: View {
                         }
                         ForEach(viewModel.holds) {
                             hold in
-                            Text("\(hold.ammount )")
+                            Text("\(hold.price )")
                         }
 //                        ForEach(stocks){ stock in
 //                            Text(stock.market_value!,formatter: marketValueFormatter)

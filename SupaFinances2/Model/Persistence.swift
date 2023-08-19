@@ -31,23 +31,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         // ITEM
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
-        // STOCK
-        let fmty = Stock(context: viewContext)
-        fmty.id = UUID()
-        fmty.dateAdd = Date()
-        fmty.market_value = 11.49
-        fmty.name = "Fibra Monterrey"
-        fmty.symbol = "FMTY14"
-        let danhos = Stock(context: viewContext)
-        danhos.id = UUID()
-        danhos.dateAdd = Date()
-        danhos.market_value = 20.82
-        danhos.name = "Fibra Danhos"
-        danhos.symbol = "DANHOS13"
+        
         do {
             try viewContext.save()
         } catch {

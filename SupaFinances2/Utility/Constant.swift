@@ -33,15 +33,6 @@ let textColor: Color = Color("Text")
 
 
 // DATA
-func sampleStock() -> Stock {
-    let fmty = Stock()
-    fmty.id = UUID()
-    fmty.dateAdd = Date()
-    fmty.market_value = 11.49
-    fmty.name = "Fibra Monterrey"
-    fmty.symbol = "FMTY14"
-    return fmty
-}
 
 
 // FORMATTERS
