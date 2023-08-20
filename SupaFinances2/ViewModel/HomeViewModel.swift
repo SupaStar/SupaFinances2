@@ -28,34 +28,31 @@ class HomeViewModel: ObservableObject {
         loadStocks()
     }
     func loadStocks(){
-//        portafolioServ.removeAllStocks()
         self.portfolio = portafolioServ.portFolios.first
-        guard let portfolio = self.portfolio else {
-            return
-        }
-//        portafolioServ.addStock(name: "MTy", marketVal: 11.44, symbol: "mty15", country: "MX", portfolio: portfolio)
         stocks = portafolioServ.savedStocks
-        loadBalance()
-        testHold()
-    }
-    func loadBalance(){
         total = 0
         for stock in stocks {
             total = stock.price_prom * stock.quantity
         }
+//        tests()
     }
-    
-    func testHold() {
-        let stock = stocks.first
-        if let stock = stock {
+//    func tests(){
+//        portafolioServ.removeAllStocks()
+//        guard let portfolio = self.portfolio else {
+//            return
+//        }
+//        portafolioServ.addStock(name: "MTy", marketVal: 11.44, symbol: "mty15", country: "MX", portfolio: portfolio)
+//        let stock = stocks.first
+//        if let stock = stock {
 //            portafolioServ.addHold(stock: stock, price: 18.0, quantity: 20, hold_date: Date())
-        }
+//        }
 //        holds = stock.holds?.allObjects as! [HoldingEntity]
-    }
+//    }
+    
     
     func deleteStock(offsets: IndexSet) {
         let selectedStocks = offsets.map { stocks[$0] }
-//        portafolioServ.deleteStocks(stocks: selectedStocks)
+        //        portafolioServ.deleteStocks(stocks: selectedStocks)
         print(selectedStocks)
     }
     
@@ -71,7 +68,7 @@ class HomeViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.usdValue = exchangeVM
                 self.isLoading = false
-//                self.pruebaBusqueda()
+                //                self.pruebaBusqueda()
             }
         })
     }

@@ -116,6 +116,9 @@ class PortafolioService {
         }
         if let stocks = portfolio.stocks {
             savedStocks = stocks.allObjects as! [StockEntity]
+            savedStocks.sort { (stock1, stock2) in
+                return stock1.added_date! < stock2.added_date!
+            }
             for stock in savedStocks {
                 if let holds = stock.holds {
                     let savedHolds = holds.allObjects as! [HoldingEntity]
@@ -130,7 +133,6 @@ class PortafolioService {
                     save()
                 }
             }
-            
         }
     }
     

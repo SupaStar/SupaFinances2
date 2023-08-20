@@ -55,8 +55,8 @@ struct HomeView: View {
                 .frame(width: 60, height: 60)
                 .background(primaryColor)
                 .clipShape(Circle())
-                .contentShape(Circle())
                 .padding()
+                .contentShape(Circle())
             }//: VSTACK
             
             if viewModel.isLoading{
