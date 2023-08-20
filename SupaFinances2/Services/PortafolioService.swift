@@ -53,7 +53,8 @@ class PortafolioService {
         entity.hold_date = hold_date
         entity.date = Date()
         stock.addToHolds(entity)
-        refreshStockData(stock: stock)
+        applyChanges()
+//        refreshStockData(stock: stock)
     }
     
     func removeAllStocks(){
@@ -110,12 +111,26 @@ class PortafolioService {
     }
     
     private func getStocks() {
-        if portFolios.count == 0 {
+        guard let portfolio = portFolios.first else {
             return
         }
-        let portfolio = portFolios[0]
         if let stocks = portfolio.stocks {
             savedStocks = stocks.allObjects as! [StockEntity]
+            for stock in savedStocks {
+                if let holds = stock.holds {
+                    let savedHolds = holds.allObjects as! [HoldingEntity]
+                    var totalPrice: Double = 0
+                    var totalQuantity: Double = 0
+                    for hold in savedHolds {
+                        totalPrice += hold.price * hold.quantity
+                        totalQuantity += hold.quantity
+                    }
+                    stock.price_prom = totalPrice / totalQuantity
+                    stock.quantity = totalQuantity
+                    save()
+                }
+            }
+            
         }
     }
     

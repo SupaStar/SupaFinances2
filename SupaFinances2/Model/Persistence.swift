@@ -30,8 +30,11 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        // ITEM
-        
+//        // Stocks
+//        let fmty = StockEntity(context: shared.container.viewContext)
+//        fmty.name = "Fibra mty"
+//        fmty.symbol = "fmty"
+//        fmty.country = "mx"
         do {
             try viewContext.save()
         } catch {

@@ -28,7 +28,7 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             VStack {
-                HeaderHomeView()
+                HeaderHomeView(ammount: viewModel.total )
                 
                 TitleSectionView(title: "Mis acciones")
                 NavigationView {
@@ -38,12 +38,9 @@ struct HomeView: View {
                             StockItemView(title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
                         }
                         .onDelete(perform: viewModel.deleteStock(offsets:))
-//                        ForEach(stocks){ stock in
-//                            Text(stock.market_value!,formatter: marketValueFormatter)
-//                            Text(stock.name ?? "")
-//                        }
-//                        .onDelete(perform: deleteItems)
                     }//: LIST
+                    .padding(.horizontal, -20)
+                    .padding(.vertical, -10)
                 }//: NAV
                 .navigationTitle("Mis acciones")
                 

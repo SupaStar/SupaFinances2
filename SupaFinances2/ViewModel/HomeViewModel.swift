@@ -15,6 +15,7 @@ class HomeViewModel: ObservableObject {
     @Published var stocks: [StockEntity] = []
     @Published var holds: [HoldingEntity] = []
     @Published var portfolio: PortafolioEntity?
+    @Published var total: Double = 0
     private let dataService: DivisasService = DivisasService()
     private let pruebas: StocksService = StocksService()
     private let portafolioServ = PortafolioService()
@@ -28,18 +29,27 @@ class HomeViewModel: ObservableObject {
     }
     func loadStocks(){
 //        portafolioServ.removeAllStocks()
-        self.portfolio = portafolioServ.portFolios[0]
+        self.portfolio = portafolioServ.portFolios.first
         guard let portfolio = self.portfolio else {
             return
         }
 //        portafolioServ.addStock(name: "MTy", marketVal: 11.44, symbol: "mty15", country: "MX", portfolio: portfolio)
         stocks = portafolioServ.savedStocks
+        loadBalance()
         testHold()
+    }
+    func loadBalance(){
+        total = 0
+        for stock in stocks {
+            total = stock.price_prom * stock.quantity
+        }
     }
     
     func testHold() {
-        let stock = stocks[0]
-//        portafolioServ.addHold(stock: stock, price: 15, quantity: 10, hold_date: Date())
+        let stock = stocks.first
+        if let stock = stock {
+//            portafolioServ.addHold(stock: stock, price: 18.0, quantity: 20, hold_date: Date())
+        }
 //        holds = stock.holds?.allObjects as! [HoldingEntity]
     }
     
