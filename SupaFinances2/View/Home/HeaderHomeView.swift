@@ -11,7 +11,7 @@ import SwiftUI
 
 struct HeaderHomeView: View {
     // MARK: PROPERTIES
-    let ammount: Double = 100000.00
+    let ammount: Double
     
     var ammountFormatted: String {
         let numberFormatter = NumberFormatter()
@@ -39,6 +39,6 @@ struct HeaderHomeView: View {
 
 struct HeaderHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderHomeView()
+        HeaderHomeView(ammount: 100)
     }
 }

@@ -11,8 +11,12 @@ import SwiftUI
 
 struct StockItemView: View {
     // MARK: PROPERTIES
-    @Environment(\.managedObjectContext) private var viewContext
     @State var variation: Double = -100.0
+    let title: String
+    let symbol: String
+    let value: Double
+    let cto_prom: Double
+    let quantity: Double
     
     var variationColor: Color {
         if variation > 0 {
@@ -33,32 +37,46 @@ struct StockItemView: View {
             return "-\(abs(variation))%"
         }
     }
+    
+    var valueFormatted: String {
+        let formattedValue = String(format: "%.2f", value)
+        return "$\(formattedValue)"
+    }
+    
+    var ctoPromFormatted: String {
+        let formattedValue = String(format: "%.2f", cto_prom)
+        return "$\(formattedValue)"
+    }
+    
+    var quantityFormatted: String {
+        return String(format: "%.2f", quantity)
+    }
     // MARK: BODY
     var body: some View {
         VStack(spacing: 10) {
             
             // MARK: STOCK TITLE
             HStack{
-                Text("Fibra Monterrey")
+                Text("\(title)")
                     .titleForeground()
                 Spacer()
-                Text("$11.33")
+                Text(valueFormatted)
                     .titleForeground()
             }//: HSTACK
             
             // MARK: STOCK SYMBOL
             HStack{
-                Text("FMTY14")
+                Text("\(symbol.uppercased())")
                     .bodyForeground()
                 Spacer()
             }//: HSTACK
             
             // MARK: STOCK DATA
             HStack {
-                Text("Cto Promedio $11.54")
+                Text("Cto Promedio \(ctoPromFormatted)")
                     .bodyForeground()
                 Spacer()
-                Text("1000 titulos")
+                Text("\(quantityFormatted) titulos")
                     .bodyForeground()
                 Spacer()
                 Text("Hoy")
@@ -73,9 +91,7 @@ struct StockItemView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(.black, lineWidth: 1)
-        )
-        .padding()
-        
+        )        
         
     }
 }
@@ -83,7 +99,7 @@ struct StockItemView: View {
 struct StockItemView_Previews: PreviewProvider {
     
     static var previews: some View {
-        StockItemView()
+        StockItemView(title: "aaaa", symbol: "aaa", value: 11.33, cto_prom: 10.0, quantity: 100)
             .previewLayout(.sizeThatFits)
     }
 }
