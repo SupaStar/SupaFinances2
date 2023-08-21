@@ -44,7 +44,7 @@ class PortafolioService {
         applyChanges()
     }
     
-    func addHold(stock: StockEntity, price: Double, quantity: Double, hold_date: Date){
+    func addHold(stock: StockEntity, price: Double, quantity: Double, hold_date: Date, type: String = "Buy"){
         let entity = HoldingEntity(context: container.viewContext)
         entity.id = UUID()
         entity.date = Date()
@@ -52,9 +52,10 @@ class PortafolioService {
         entity.quantity = quantity
         entity.hold_date = hold_date
         entity.date = Date()
+        entity.type = type
         stock.addToHolds(entity)
-        applyChanges()
-//        refreshStockData(stock: stock)
+//        applyChanges()
+        refreshStockData(stock: stock)
     }
     
     func removeAllStocks(){
@@ -79,7 +80,7 @@ class PortafolioService {
             var totalPrice: Double = 0
             var totalQuantity: Double = 0
             for hold in savedHolds {
-                totalPrice += hold.price
+                totalPrice += hold.price * hold.quantity
                 totalQuantity += hold.quantity
             }
             stock.price_prom = totalPrice / Double(savedHolds.count)
@@ -119,20 +120,20 @@ class PortafolioService {
             savedStocks.sort { (stock1, stock2) in
                 return stock1.added_date! < stock2.added_date!
             }
-            for stock in savedStocks {
-                if let holds = stock.holds {
-                    let savedHolds = holds.allObjects as! [HoldingEntity]
-                    var totalPrice: Double = 0
-                    var totalQuantity: Double = 0
-                    for hold in savedHolds {
-                        totalPrice += hold.price * hold.quantity
-                        totalQuantity += hold.quantity
-                    }
-                    stock.price_prom = totalPrice / totalQuantity
-                    stock.quantity = totalQuantity
-                    save()
-                }
-            }
+//            for stock in savedStocks {
+//                if let holds = stock.holds {
+//                    let savedHolds = holds.allObjects as! [HoldingEntity]
+//                    var totalPrice: Double = 0
+//                    var totalQuantity: Double = 0
+//                    for hold in savedHolds {
+//                        totalPrice += hold.price * hold.quantity
+//                        totalQuantity += hold.quantity
+//                    }
+//                    stock.price_prom = totalPrice / totalQuantity
+//                    stock.quantity = totalQuantity
+//                    save()
+//                }
+//            }
         }
     }
     

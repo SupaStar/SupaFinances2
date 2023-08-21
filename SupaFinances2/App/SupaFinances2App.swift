@@ -16,6 +16,7 @@ struct SupaFinances2App: App {
     var body: some Scene {
         WindowGroup {
             IndexView()
+                .environmentObject(Finances())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

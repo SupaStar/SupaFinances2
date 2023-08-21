@@ -10,5 +10,5 @@
 import SwiftUI
 
 class Finances: ObservableObject {
-    @Published var isLoading: Bool = false
+    @Published var isSubView: Bool = false
 }

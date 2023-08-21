@@ -11,6 +11,7 @@ import SwiftUI
 
 struct StockSearchView: View {
     // MARK: PROPERTIES
+    @State var isSaved: Bool
     let title: String = "danhos"
     let symbol: String = "danh"
     let value: Double = 20.03
@@ -30,7 +31,8 @@ struct StockSearchView: View {
             Spacer()
             Text(valueFormatted)
                 .titleForeground()
-            Image(systemName: "chevron.right")
+            Image(systemName: isSaved ? "star.fill" : "star")
+                .foregroundColor(isSaved ? Color.yellow : textColor)
                 .titleForeground()
         }//: HSTACK
         .padding()
@@ -44,12 +46,17 @@ struct StockSearchView: View {
                 .shadow(color: Color(UIColor.lightGray), radius: 0.4, x: 3, y: 3)
         )
         .padding()
+        .onTapGesture {
+            withAnimation(.linear(duration: 0.1)){
+                isSaved.toggle()
+            }
+        }
     }
 }
 
 struct StockSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        StockSearchView()
+        StockSearchView(isSaved: true)
             .previewLayout(.sizeThatFits)
     }
 }

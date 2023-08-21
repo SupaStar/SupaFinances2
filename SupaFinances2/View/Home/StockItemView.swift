@@ -92,7 +92,7 @@ struct StockItemView: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(.black, lineWidth: 1)
         )        
-        
+//        .frame(height: 60)
     }
 }
 
