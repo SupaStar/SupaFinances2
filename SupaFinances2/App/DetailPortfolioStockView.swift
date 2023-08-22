@@ -14,6 +14,7 @@ struct DetailPortfolioStockView: View {
     @ObservedObject var viewModel: DetailPortfolioStockViewModel
     @StateObject var settings = Finances()
     @State var isAdding: Bool = false
+    @State var isSelling: Bool = false
     // MARK: BODY
     var body: some View {
         ZStack {
@@ -27,15 +28,18 @@ struct DetailPortfolioStockView: View {
                     Spacer()
                 }//: HSTACK
                 Text("$\(viewModel.total)")
-                ForEach(viewModel.holds){
-                    hold in
-                    HoldItemView(
-                        date: hold.date ?? Date(),
-                        type: hold.type ?? "",
-                        price: hold.price,
-                        quantity: hold.quantity,
-                        symbol: viewModel.stock?.symbol ?? "aaa")
+                List {
+                    ForEach(viewModel.holds){
+                        hold in
+                        HoldItemView(
+                            date: hold.date ?? Date(),
+                            type: hold.type ?? "",
+                            price: hold.price,
+                            quantity: hold.quantity,
+                            symbol: viewModel.stock?.symbol ?? "aaa")
+                    }//: FOR
                 }
+                
                 Spacer()
             }//: VSTACK
             .toolbar(content: {
@@ -52,7 +56,9 @@ struct DetailPortfolioStockView: View {
                     Image(systemName: "plus")
                 })
                 Button(action: {
-                    
+                    withAnimation(.easeIn(duration: 0.2)){
+                        isSelling = true
+                    }
                 }, label: {
                     Image(systemName: "minus")
                 })
@@ -64,7 +70,23 @@ struct DetailPortfolioStockView: View {
                 HoldModalFormView(viewModel: HoldModalFormViewModel(type: "buy", stock: viewModel.stock), isShowing: $isAdding)
                     .zIndex(2)
             }
+            if isSelling{
+                HoldModalFormView(viewModel: HoldModalFormViewModel(type: "sell", stock: viewModel.stock), isShowing: $isSelling)
+                    .zIndex(3)
+            }
         }//: ZSTACK
+        .onChange(of: isAdding, perform: {
+            value in
+            if value == false {
+                viewModel.refreshHold()
+            }
+        })
+        .onChange(of: isSelling, perform: {
+            value in
+            if value == false {
+                viewModel.refreshHold()
+            }
+        })
         .onAppear() {
             withAnimation(.easeIn(duration: 0.1)){
                 settings.isSubView = true

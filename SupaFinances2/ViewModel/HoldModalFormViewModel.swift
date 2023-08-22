@@ -16,6 +16,8 @@ class HoldModalFormViewModel: ObservableObject {
     @Published var dateHold: Date = Date()
     @Published var type: String
     @Published var stock: StockEntity?
+    var saved: (() -> Void)?
+
     // MARK: INJECTIONS
     private var portfolioService: PortafolioService = PortafolioService()
     
@@ -37,5 +39,8 @@ class HoldModalFormViewModel: ObservableObject {
         quantityS = ""
         priceS = ""
         dateHold = Date()
+        if let saved = self.saved {
+            saved()
+        }
     }
 }

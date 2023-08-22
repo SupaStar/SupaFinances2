@@ -41,7 +41,7 @@ struct HoldItemView: View {
                 Text("Total: $\( formattedDouble(total))")
             }//: HSTACK
             HStack {
-                Text("\(type) \(formattedDouble(quantity))")
+                Text("\(type.uppercased()) \(formattedDouble(quantity))")
                 Text("$\(formattedDouble(price))")
                 Spacer()
                 Text("\(formattedDate)")

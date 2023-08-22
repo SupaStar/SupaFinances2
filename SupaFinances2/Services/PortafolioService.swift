@@ -17,6 +17,7 @@ class PortafolioService {
     private let stockEntityName: String = "StockEntity"
     private let holdingEntityName: String = "HoldingEntity"
     
+    @Published var stockSelected: StockEntity?
     @Published var savedStocks: [StockEntity] = []
     @Published var portFolios: [PortafolioEntity] = []
     
@@ -45,6 +46,7 @@ class PortafolioService {
     }
     
     func addHold(stock: StockEntity, price: Double, quantity: Double, hold_date: Date, type: String = "Buy"){
+        findHold(stock: stock, symbol: nil)
         let entity = HoldingEntity(context: container.viewContext)
         entity.id = UUID()
         entity.date = Date()
@@ -53,9 +55,11 @@ class PortafolioService {
         entity.hold_date = hold_date
         entity.date = Date()
         entity.type = type
-        stock.addToHolds(entity)
-//        applyChanges()
-//        refreshStockData(stock: stock)
+        if let stockSelected = self.stockSelected {
+            stockSelected.addToHolds(entity)
+            applyChanges()
+            refreshStockData(stock: stock)
+        }
     }
     
     func removeAllStocks(){
@@ -91,6 +95,22 @@ class PortafolioService {
             stock.price_prom = totalPrice / Double(savedHolds.count)
             stock.quantity = totalQuantity
             applyChanges()
+        }
+    }
+    
+    func findHold(stock: StockEntity?, symbol: String?){
+        var symbolF = ""
+        if let stock = stock {
+            guard let symbolS = stock.symbol else {
+                return
+            }
+            symbolF = symbolS
+        }
+        if let symbol = symbol {
+            symbolF = symbol
+        }
+        if let stockSel = savedStocks.first(where: { $0.symbol == symbolF }) {
+            self.stockSelected = stockSel
         }
     }
     

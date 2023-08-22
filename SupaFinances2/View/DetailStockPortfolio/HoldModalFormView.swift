@@ -29,7 +29,8 @@ struct HoldModalFormView: View {
                     closeModal()
                 }
             VStack(spacing: 10){
-                TextField("Titulos comprados", text: $viewModel.quantityS)
+                Text(viewModel.type.lowercased() == "buy" ? "Compra" : "Venta")
+                TextField("Numero de titulos", text: $viewModel.quantityS)
                     .keyboardType(.numberPad)
                 
                 TextField("Precio por titulo", text: $viewModel.priceS)
@@ -52,6 +53,11 @@ struct HoldModalFormView: View {
                     RoundedRectangle(cornerRadius: 10)
                 )
             }//: VSTACK
+            .onAppear(){
+                viewModel.saved = {
+                    closeModal()
+                }
+            }
             .padding()
             .background()
             .cornerRadius(8)
