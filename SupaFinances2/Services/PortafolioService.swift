@@ -55,7 +55,7 @@ class PortafolioService {
         entity.type = type
         stock.addToHolds(entity)
 //        applyChanges()
-        refreshStockData(stock: stock)
+//        refreshStockData(stock: stock)
     }
     
     func removeAllStocks(){
@@ -80,8 +80,13 @@ class PortafolioService {
             var totalPrice: Double = 0
             var totalQuantity: Double = 0
             for hold in savedHolds {
-                totalPrice += hold.price * hold.quantity
-                totalQuantity += hold.quantity
+                if hold.type == "buy"{
+                    totalPrice += hold.price * hold.quantity
+                    totalQuantity += hold.quantity
+                } else {
+                    totalPrice -= hold.price * hold.quantity
+                    totalQuantity -= hold.quantity
+                }
             }
             stock.price_prom = totalPrice / Double(savedHolds.count)
             stock.quantity = totalQuantity

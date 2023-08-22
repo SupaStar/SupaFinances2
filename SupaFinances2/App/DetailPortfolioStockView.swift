@@ -13,12 +13,19 @@ struct DetailPortfolioStockView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: DetailPortfolioStockViewModel
     @StateObject var settings = Finances()
-    
+    @State var isAdding: Bool = false
     // MARK: BODY
     var body: some View {
-        ZStack{
+        ZStack {
             VStack {
                 Text(viewModel.stock?.name ?? "ddd")
+                HStack {
+                    Spacer()
+                    Text("\(viewModel.stock?.quantity ?? 0)")
+                    Spacer()
+                    Text("\(viewModel.stock?.price_prom ?? 0)")
+                    Spacer()
+                }//: HSTACK
                 Text("$\(viewModel.total)")
                 ForEach(viewModel.holds){
                     hold in
@@ -38,13 +45,24 @@ struct DetailPortfolioStockView: View {
                     Text("Editar")
                 })
                 Button(action: {
-                    
+                    withAnimation(.easeIn(duration: 0.2)){
+                        isAdding = true
+                    }
                 }, label: {
                     Image(systemName: "plus")
+                })
+                Button(action: {
+                    
+                }, label: {
+                    Image(systemName: "minus")
                 })
             })
             if viewModel.isLoading {
                 LoadingView()
+            }
+            if isAdding {
+                HoldModalFormView(viewModel: HoldModalFormViewModel(type: "buy", stock: viewModel.stock), isShowing: $isAdding)
+                    .zIndex(2)
             }
         }//: ZSTACK
         .onAppear() {
