@@ -15,19 +15,22 @@ struct DetailPortfolioStockView: View {
     @StateObject var settings = Finances()
     @State var isAdding: Bool = false
     @State var isSelling: Bool = false
+    
+    var pricePromVer: Double {
+        var value = 0.0
+        guard let priceProm = viewModel.stock?.price_prom else {
+            return value
+        }
+        if !(priceProm.isNaN) {
+            value = priceProm
+        }
+        return value
+    }
     // MARK: BODY
     var body: some View {
         ZStack {
             VStack {
-                Text(viewModel.stock?.name ?? "ddd")
-                HStack {
-                    Spacer()
-                    Text("\(viewModel.stock?.quantity ?? 0)")
-                    Spacer()
-                    Text("\(viewModel.stock?.price_prom ?? 0)")
-                    Spacer()
-                }//: HSTACK
-                Text("$\(viewModel.total)")
+                HeaderPortfolioDetailView(name: viewModel.stock?.name ?? "", quantity: viewModel.stock?.quantity ?? 0, priceProm: pricePromVer, total: viewModel.total)
                 List {
                     ForEach(viewModel.holds){
                         hold in
@@ -38,7 +41,9 @@ struct DetailPortfolioStockView: View {
                             quantity: hold.quantity,
                             symbol: viewModel.stock?.symbol ?? "aaa")
                     }//: FOR
-                }
+                    .onDelete(perform: viewModel.deleteHolds(offsets:))
+                }//: LIST
+                
                 
                 Spacer()
             }//: VSTACK

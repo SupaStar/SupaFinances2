@@ -22,32 +22,31 @@ class DetailPortfolioStockViewModel: ObservableObject {
     
     func loadHolds(){
         isLoading = true
-        guard let stock = self.stock else {
+        guard let stock = servicePortfolio.findStock(stock: stock, symbol: nil) else {
             isLoading = false
             return
         }
-        if let holds = stock.holds {
-            self.holds = holds.allObjects as! [HoldingEntity]
-            self.holds.sort { (hold1, hold2) in
-                return hold1.hold_date! > hold2.hold_date!
-            }
-            for hold in self.holds {
-                total += hold.price * hold.quantity
-            }
-        }
+        self.holds = servicePortfolio.getHolds(stock: stock)
         self.isLoading = false
     }
-    func refreshHold () {
+    
+    func refreshHold() {
         isLoading = true
         guard let stock = self.stock else {
             isLoading = false
             return
         }
-        servicePortfolio.findHold(stock: stock, symbol: nil)
-        guard let newStock = servicePortfolio.stockSelected else {
+        guard let newStock = servicePortfolio.findStock(stock: stock, symbol: nil) else {
             return
         }
+        servicePortfolio.refreshStockData(stock: newStock)
         self.stock = newStock
         loadHolds()
+    }
+    
+    func deleteHolds(offsets: IndexSet) {
+        let selectedHolds = offsets.map { holds[$0] }
+        servicePortfolio.deleteHolds(holds: selectedHolds)
+        refreshHold()
     }
 }

@@ -35,7 +35,10 @@ class HoldModalFormViewModel: ObservableObject {
         guard let stock = self.stock else {
             return
         }
-        portfolioService.addHold(stock: stock, price: price, quantity: quantity, hold_date: dateHold, type: type)
+        guard let stockA = portfolioService.findStock(stock: stock, symbol: nil) else {
+            return
+        }
+        portfolioService.addHold(stock: stockA, price: price, quantity: quantity, hold_date: dateHold, type: type)
         quantityS = ""
         priceS = ""
         dateHold = Date()

@@ -16,29 +16,35 @@ struct HoldItemView: View {
     let price: Double
     let quantity: Double
     let symbol: String
+    
     var total: Double {
         return price * quantity
     }
+    
     var formattedDate: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         return dateFormatter.string(from: date)
     }
+    
     func formattedDouble(_ value: Double) -> String {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            numberFormatter.minimumFractionDigits = 2
-            numberFormatter.maximumFractionDigits = 2
-            
-            return numberFormatter.string(from: NSNumber(value: value)) ?? ""
-        }
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        
+        return numberFormatter.string(from: NSNumber(value: value)) ?? ""
+    }
+    
     // MARK: BODY
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Text("\(symbol.uppercased())")
+                    .fontWeight(.bold)
                 Spacer()
                 Text("Total: $\( formattedDouble(total))")
+                    .foregroundColor(textColor)
             }//: HSTACK
             HStack {
                 Text("\(type.uppercased()) \(formattedDouble(quantity))")
