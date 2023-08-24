@@ -13,6 +13,7 @@ class DetailPortfolioStockViewModel: ObservableObject {
     @Published var holds: [HoldingEntity] = []
     @Published var total: Double = 0
     @Published public private(set) var isLoading: Bool = false
+    @Published var form: HoldViewModel?
     
     private var servicePortfolio: PortafolioService = PortafolioService()
     init(stock: StockEntity?) {
@@ -20,33 +21,52 @@ class DetailPortfolioStockViewModel: ObservableObject {
         loadHolds()
     }
     
+    func refreshStock() -> Bool {
+        guard let newStock = servicePortfolio.findStock(stock: stock, symbol: nil) else {
+            return false
+        }
+        self.stock = newStock
+        return true
+    }
+    
     func loadHolds(){
         isLoading = true
-        guard let stock = servicePortfolio.findStock(stock: stock, symbol: nil) else {
+        if !refreshStock() {
             isLoading = false
             return
         }
-        self.holds = servicePortfolio.getHolds(stock: stock)
+        self.holds = servicePortfolio.getHolds(stock: self.stock!)
         self.isLoading = false
     }
     
     func refreshHold() {
         isLoading = true
-        guard let stock = self.stock else {
+        if !refreshStock() {
             isLoading = false
             return
         }
-        guard let newStock = servicePortfolio.findStock(stock: stock, symbol: nil) else {
-            return
-        }
-        servicePortfolio.refreshStockData(stock: newStock)
-        self.stock = newStock
+        servicePortfolio.refreshStockData(stock: self.stock!)
         loadHolds()
     }
     
     func deleteHolds(offsets: IndexSet) {
         let selectedHolds = offsets.map { holds[$0] }
         servicePortfolio.deleteHolds(holds: selectedHolds)
+        refreshHold()
+    }
+    func saveHold() {
+        isLoading = true
+        guard let hold = form else {
+            isLoading = false
+            return
+        }
+        
+        if !refreshStock() {
+            isLoading = false
+            return
+        }
+        
+        servicePortfolio.addHold(stock: self.stock!, price: hold.price, quantity: hold.quantity, hold_date: hold.dateHold, type: hold.type)
         refreshHold()
     }
 }

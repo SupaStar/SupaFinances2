@@ -16,7 +16,7 @@ class HoldModalFormViewModel: ObservableObject {
     @Published var dateHold: Date = Date()
     @Published var type: String
     @Published var stock: StockEntity?
-    var saved: (() -> Void)?
+    var saved: ((_ hold: HoldViewModel) -> Void)?
 
     // MARK: INJECTIONS
     private var portfolioService: PortafolioService = PortafolioService()
@@ -32,18 +32,12 @@ class HoldModalFormViewModel: ObservableObject {
         guard let quantity = Double(quantityS), let price = Double(priceS) else {
             return
         }
-        guard let stock = self.stock else {
-            return
-        }
-        guard let stockA = portfolioService.findStock(stock: stock, symbol: nil) else {
-            return
-        }
-        portfolioService.addHold(stock: stockA, price: price, quantity: quantity, hold_date: dateHold, type: type)
+        let holdVM = HoldViewModel(quantity: quantity, price: price, type: type, dateHold: dateHold)
         quantityS = ""
         priceS = ""
         dateHold = Date()
         if let saved = self.saved {
-            saved()
+            saved(holdVM)
         }
     }
 }

@@ -72,11 +72,11 @@ struct DetailPortfolioStockView: View {
                 LoadingView()
             }
             if isAdding {
-                HoldModalFormView(viewModel: HoldModalFormViewModel(type: "buy", stock: viewModel.stock), isShowing: $isAdding)
+                HoldModalFormView(viewModel: HoldModalFormViewModel(type: "buy", stock: viewModel.stock), isShowing: $isAdding, form: $viewModel.form)
                     .zIndex(2)
             }
             if isSelling{
-                HoldModalFormView(viewModel: HoldModalFormViewModel(type: "sell", stock: viewModel.stock), isShowing: $isSelling)
+                HoldModalFormView(viewModel: HoldModalFormViewModel(type: "sell", stock: viewModel.stock), isShowing: $isSelling, form: $viewModel.form)
                     .zIndex(3)
             }
         }//: ZSTACK
@@ -91,6 +91,10 @@ struct DetailPortfolioStockView: View {
             if value == false {
                 viewModel.refreshHold()
             }
+        })
+        .onChange(of: viewModel.form, perform: { value in
+            viewModel.form = value
+            viewModel.saveHold()
         })
         .onAppear() {
             withAnimation(.easeIn(duration: 0.1)){

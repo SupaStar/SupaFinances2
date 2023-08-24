@@ -14,7 +14,6 @@ struct HomeView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HomeViewModel
     @StateObject var settings = Finances()
-    @State private var isSub = false
     // MARK: BODY
     var body: some View {
         NavigationView {

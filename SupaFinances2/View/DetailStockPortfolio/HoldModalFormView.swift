@@ -13,12 +13,17 @@ struct HoldModalFormView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HoldModalFormViewModel
     @Binding var isShowing: Bool
-    
+    @Binding var form: HoldViewModel?
     // MARK: FUNCS
     func closeModal(){
         withAnimation(.easeOut(duration: 0.2)){
             isShowing = false
         }
+    }
+    
+    func save(hold: HoldViewModel){
+        self.form = hold
+        closeModal()
     }
     
     // MARK: BODY
@@ -54,8 +59,8 @@ struct HoldModalFormView: View {
                 )
             }//: VSTACK
             .onAppear(){
-                viewModel.saved = {
-                    closeModal()
+                viewModel.saved = { value in
+                    save(hold: value)
                 }
             }
             .padding()
@@ -68,7 +73,7 @@ struct HoldModalFormView: View {
 
 struct HoldModalFormView_Previews: PreviewProvider {
     static var previews: some View {
-        HoldModalFormView(viewModel: HoldModalFormViewModel(type: "Buy", stock: nil), isShowing: .constant(false))
+        HoldModalFormView(viewModel: HoldModalFormViewModel(type: "Buy", stock: nil), isShowing: .constant(false), form: .constant(nil))
             .previewLayout(.sizeThatFits)
     }
 }
