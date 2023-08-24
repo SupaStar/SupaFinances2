@@ -114,5 +114,6 @@ struct DetailPortfolioStockView: View {
 struct DetailPortfolioStockView_Previews: PreviewProvider {
     static var previews: some View {
         DetailPortfolioStockView(viewModel: DetailPortfolioStockViewModel(stock: nil))
+            .environmentObject(Finances())
     }
 }

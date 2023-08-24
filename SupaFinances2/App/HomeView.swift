@@ -49,15 +49,16 @@ struct HomeView: View {
                     .contentShape(Circle())
                 }//: VSTACK
             }//: ZSTACK
-            
+            .onAppear(){
+                viewModel.loadUsdValue()
+                viewModel.loadStocks()
+            }
             if viewModel.isLoading{
                 LoadingView()
             }
         }//: NAV
         .navigationTitle("Mis acciones")
-        .onAppear(){
-            viewModel.loadUsdValue()
-        }
+
     }
 }
 
@@ -66,6 +67,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(viewModel: HomeViewModel(isPreview: true))
+            .environmentObject(Finances())
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
