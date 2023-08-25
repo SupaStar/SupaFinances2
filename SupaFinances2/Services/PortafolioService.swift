@@ -33,7 +33,7 @@ class PortafolioService {
     
     // MARK: PUBLIC
     
-    func addStock(name: String, marketVal: Double, symbol: String,country: String, portfolio: PortafolioEntity){
+    func addStock(name: String, marketVal: Double, symbol: String, country: String, portfolio: PortafolioEntity){
         if portfolio.stocks?.first(where: { ($0 as? StockEntity)?.symbol == symbol }) is StockEntity {
             // El símbolo ya existe, no se necesita crear un nuevo objeto
             print("El símbolo ya está registrado: \(symbol)")

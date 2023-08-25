@@ -24,11 +24,11 @@ struct StockSearchView: View {
         HStack {
             Text(title.uppercased())
                 .titleForeground()
+            Spacer()
             Text(symbol.uppercased())
                 .font(.system(.caption2, design: .rounded))
                 .padding(.top, 5)
                 .foregroundColor(textColor)
-            Spacer()
 //            Text(valueFormatted)
 //                .titleForeground()
             Image(systemName: isSaved ? "star.fill" : "star")
@@ -46,11 +46,11 @@ struct StockSearchView: View {
                 .shadow(color: Color(UIColor.lightGray), radius: 0.4, x: 3, y: 3)
         )
         .padding()
-        .onTapGesture {
-            withAnimation(.linear(duration: 0.1)){
-                isSaved.toggle()
-            }
-        }
+//        .onTapGesture {
+//            withAnimation(.linear(duration: 0.1)){
+//                isSaved.toggle()
+//            }
+//        }
     }
 }
 

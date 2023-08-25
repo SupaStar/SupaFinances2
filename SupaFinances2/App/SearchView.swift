@@ -12,7 +12,7 @@ import SwiftUI
 struct SearchView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: SearchViewModel
-    private let stocks: [String] = []
+    @State var isSaved: Bool = false
     // MARK: BODY
     var body: some View {
         VStack {
@@ -24,8 +24,11 @@ struct SearchView: View {
                     ForEach(viewModel.stocks){ stock in
                         StockSearchView(
                             isSaved: stock.isSaved,
-                                title: stock.instrument_name,
-                                symbol: stock.symbol)
+                            title: stock.instrument_name,
+                            symbol: stock.symbol)
+                        .onTapGesture {
+                            viewModel.saveStock(stock: stock)
+                        }
                     }
                 }
                 Spacer()
