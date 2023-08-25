@@ -12,6 +12,7 @@
 		091CBC062A8ED83100BAB0EA /* UsaStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091CBC052A8ED83100BAB0EA /* UsaStock.swift */; };
 		091CBC082A8ED8F200BAB0EA /* StocksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091CBC072A8ED8F200BAB0EA /* StocksService.swift */; };
 		093D85922A96D09200E78DB3 /* HoldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D85912A96D09200E78DB3 /* HoldViewModel.swift */; };
+		093D85942A9928AA00E78DB3 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D85932A9928AA00E78DB3 /* SearchViewModel.swift */; };
 		0966479D2A8D537B00D8E147 /* SupaFinances2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */; };
 		0966479F2A8D537B00D8E147 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479E2A8D537B00D8E147 /* HomeView.swift */; };
 		096647A12A8D537C00D8E147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096647A02A8D537C00D8E147 /* Assets.xcassets */; };
@@ -70,6 +71,7 @@
 		091CBC052A8ED83100BAB0EA /* UsaStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsaStock.swift; sourceTree = "<group>"; };
 		091CBC072A8ED8F200BAB0EA /* StocksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksService.swift; sourceTree = "<group>"; };
 		093D85912A96D09200E78DB3 /* HoldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldViewModel.swift; sourceTree = "<group>"; };
+		093D85932A9928AA00E78DB3 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		096647992A8D537B00D8E147 /* SupaFinances2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaFinances2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupaFinances2App.swift; sourceTree = "<group>"; };
 		0966479E2A8D537B00D8E147 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				09E6A1162A8EA08300927CAC /* HomeViewModel.swift */,
 				09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift.swift */,
 				09760A392A943E3A00214D69 /* HoldModalFormViewModel.swift */,
+				093D85932A9928AA00E78DB3 /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				09913F3D2A956C8C00ECDDF1 /* HeaderPortfolioDetailView.swift in Sources */,
 				09687E042A9017E800BAA7B8 /* FontStyles.swift in Sources */,
 				096647A62A8D537C00D8E147 /* Persistence.swift in Sources */,
+				093D85942A9928AA00E78DB3 /* SearchViewModel.swift in Sources */,
 				09E6A1192A8EABAB00927CAC /* IndexView.swift in Sources */,
 				09687E3D2A91AF3400BAA7B8 /* DetailPortfolioStockView.swift in Sources */,
 				09E6A1122A8E9E3400927CAC /* DivisasService.swift in Sources */,

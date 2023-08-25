@@ -12,13 +12,13 @@ import SwiftUI
 struct StockSearchView: View {
     // MARK: PROPERTIES
     @State var isSaved: Bool
-    let title: String = "danhos"
-    let symbol: String = "danh"
-    let value: Double = 20.03
+    let title: String
+    let symbol: String
+//    let value: Double
     
-    var valueFormatted: String {
-        return "$\(value)"
-    }
+//    var valueFormatted: String {
+//        return "$\(value)"
+//    }
     // MARK: BODY
     var body: some View {
         HStack {
@@ -29,8 +29,8 @@ struct StockSearchView: View {
                 .padding(.top, 5)
                 .foregroundColor(textColor)
             Spacer()
-            Text(valueFormatted)
-                .titleForeground()
+//            Text(valueFormatted)
+//                .titleForeground()
             Image(systemName: isSaved ? "star.fill" : "star")
                 .foregroundColor(isSaved ? Color.yellow : textColor)
                 .titleForeground()
@@ -56,7 +56,8 @@ struct StockSearchView: View {
 
 struct StockSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        StockSearchView(isSaved: true)
+//        StockSearchView(isSaved: true, title: "Aaa", symbol: "bbb", value: 1.0)
+        StockSearchView(isSaved: true, title: "Aaa", symbol: "bbb")
             .previewLayout(.sizeThatFits)
     }
 }

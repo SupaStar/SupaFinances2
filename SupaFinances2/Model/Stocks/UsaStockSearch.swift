@@ -27,12 +27,14 @@ class UsaStockSearchViewModel: ObservableObject, Identifiable {
     let exchange: String
     let currency: String
     let country: String
+    var isSaved: Bool
     
-    init(usaStock: UsaStockSearch){
+    init(usaStock: UsaStockSearch, isSaved: Bool){
         self.symbol = usaStock.symbol
         self.instrument_name = usaStock.instrument_name
         self.exchange = usaStock.exchange
         self.currency = usaStock.currency
         self.country = usaStock.country
+        self.isSaved = isSaved
     }
 }

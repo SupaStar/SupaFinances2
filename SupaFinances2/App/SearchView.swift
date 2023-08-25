@@ -11,16 +11,24 @@ import SwiftUI
 
 struct SearchView: View {
     // MARK: PROPERTIES
+    @ObservedObject var viewModel: SearchViewModel
     private let stocks: [String] = []
-    @State var search: String = ""
     // MARK: BODY
     var body: some View {
         VStack {
-            SearchBar(searchTerm: $search)
-            if stocks.isEmpty {
+            SearchBar(searchTerm: $viewModel.searchText)
+            if viewModel.stocks.isEmpty {
                 EmptySearch()
             } else {
-                
+                ScrollView(.vertical, showsIndicators: true){
+                    ForEach(viewModel.stocks){ stock in
+                        StockSearchView(
+                            isSaved: stock.isSaved,
+                                title: stock.instrument_name,
+                                symbol: stock.symbol)
+                    }
+                }
+                Spacer()
             }
         }
     }
@@ -38,41 +46,41 @@ struct EmptySearch: View {
 }
 
 struct SearchBar: UIViewRepresentable {
-  typealias UIViewType = UISearchBar
-  
-  @Binding var searchTerm: String
-
-  func makeUIView(context: Context) -> UISearchBar {
-    let searchBar = UISearchBar(frame: .zero)
-    searchBar.delegate = context.coordinator
-    searchBar.searchBarStyle = .minimal
-    searchBar.placeholder = "Type a song, artist, or album name..."
-    return searchBar
-  }
-  
-  func updateUIView(_ uiView: UISearchBar, context: Context) {
-  }
-  
-  func makeCoordinator() -> SearchBarCoordinator {
-    return SearchBarCoordinator(searchTerm: $searchTerm)
-  }
-  
-  class SearchBarCoordinator: NSObject, UISearchBarDelegate {
+    typealias UIViewType = UISearchBar
+    
     @Binding var searchTerm: String
     
-    init(searchTerm: Binding<String>) {
-      self._searchTerm = searchTerm
+    func makeUIView(context: Context) -> UISearchBar {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.delegate = context.coordinator
+        searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = "Escribe el nombre de una accion o ETF..."
+        return searchBar
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-      searchTerm = searchBar.text ?? ""
-      UIApplication.shared.windows.first { $0.isKeyWindow }?.endEditing(true)
+    func updateUIView(_ uiView: UISearchBar, context: Context) {
     }
-  }
+    
+    func makeCoordinator() -> SearchBarCoordinator {
+        return SearchBarCoordinator(searchTerm: $searchTerm)
+    }
+    
+    class SearchBarCoordinator: NSObject, UISearchBarDelegate {
+        @Binding var searchTerm: String
+        
+        init(searchTerm: Binding<String>) {
+            self._searchTerm = searchTerm
+        }
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchTerm = searchBar.text ?? ""
+            UIApplication.shared.windows.first { $0.isKeyWindow }?.endEditing(true)
+        }
+    }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView(viewModel: SearchViewModel())
     }
 }
