@@ -36,6 +36,14 @@ class DetailPortfolioStockViewModel: ObservableObject {
             return
         }
         self.holds = servicePortfolio.getHolds(stock: self.stock!)
+        total = 0
+        for hold in holds {
+            if hold.type == "buy" {
+                self.total += hold.price * hold.quantity
+            } else {
+                self.total -= hold.price * hold.quantity
+            }
+        }
         self.isLoading = false
     }
     

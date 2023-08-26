@@ -114,6 +114,19 @@ class PortafolioService {
         }
         return nil
     }
+    
+    func getStocks(portfolio: PortafolioEntity) -> [StockEntity] {
+        var finalStocks: [StockEntity] = []
+        if let stocks = portfolio.stocks {
+            var stocksL = stocks.allObjects as! [StockEntity]
+            stocksL.sort { (stock1, stock2) in
+                return stock1.added_date! < stock2.added_date!
+            }
+            finalStocks = stocksL
+        }
+        return finalStocks
+    }
+    
     // MARK: PRIVATE
     
     func refreshStockData(stock: StockEntity){
@@ -130,7 +143,7 @@ class PortafolioService {
                     totalQuantity -= hold.quantity
                 }
             }
-            stock.price_prom = totalPrice / Double(savedHolds.count)
+            stock.price_prom = totalPrice / totalQuantity
             stock.quantity = totalQuantity
             applyChanges()
         }

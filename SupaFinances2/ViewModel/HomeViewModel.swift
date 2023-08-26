@@ -53,7 +53,7 @@ class HomeViewModel: ObservableObject {
     
     func deleteStock(offsets: IndexSet) {
         let selectedStocks = offsets.map { stocks[$0] }
-        //        portafolioServ.deleteStocks(stocks: selectedStocks)
+        portafolioServ.deleteStocks(stocks: selectedStocks)
         print(selectedStocks)
     }
     

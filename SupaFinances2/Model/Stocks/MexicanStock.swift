@@ -14,14 +14,14 @@ struct MexicanStockResponse: Codable {
     let BIVA: MexicanStock
 }
 struct MexicanStock: Codable {
-    let ultimo: Decimal
-    let ppp: Decimal
+    let ultimo: Double
+    let ppp: Double
     let tiempo: String
 }
 
 class MexicanStockViewModel: Identifiable, ObservableObject {
-    let ultimo: Decimal
-    let ppp: Decimal
+    let ultimo: Double
+    let ppp: Double
     let tiempo: String
     
     init(mexicanStock: MexicanStock){

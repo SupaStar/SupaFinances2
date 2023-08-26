@@ -15,25 +15,30 @@ struct SearchView: View {
     @State var isSaved: Bool = false
     // MARK: BODY
     var body: some View {
-        VStack {
-            SearchBar(searchTerm: $viewModel.searchText)
-            if viewModel.stocks.isEmpty {
-                EmptySearch()
-            } else {
-                ScrollView(.vertical, showsIndicators: true){
-                    ForEach(viewModel.stocks){ stock in
-                        StockSearchView(
-                            isSaved: stock.isSaved,
-                            title: stock.instrument_name,
-                            symbol: stock.symbol)
-                        .onTapGesture {
-                            viewModel.saveStock(stock: stock)
+        ZStack {
+            VStack {
+                SearchBar(searchTerm: $viewModel.searchText)
+                if viewModel.stocks.isEmpty {
+                    EmptySearch()
+                } else {
+                    ScrollView(.vertical, showsIndicators: true){
+                        ForEach(viewModel.stocks){ stock in
+                            StockSearchView(
+                                isSaved: stock.isSaved,
+                                title: stock.instrument_name,
+                                symbol: stock.symbol)
+                            .onTapGesture {
+                                viewModel.saveStock(stock: stock)
+                            }
                         }
                     }
+                    Spacer()
                 }
-                Spacer()
+            }//: VSTACK
+            if viewModel.isLoading{
+                LoadingView()
             }
-        }
+        }//: ZSTACK|
     }
 }
 
