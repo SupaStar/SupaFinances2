@@ -2,7 +2,7 @@
 //  HoldingEntity+CoreDataProperties
 //  
 //
-//  Created by Obed Martinez on 19/08/23
+//  Created by Obed Martinez on 21/08/23
 //
 
 
@@ -23,6 +23,7 @@ extension HoldingEntity {
     @NSManaged public var id: UUID?
     @NSManaged public var price: Double
     @NSManaged public var quantity: Double
+    @NSManaged public var type: String?
     @NSManaged public var stock: StockEntity?
 
 }

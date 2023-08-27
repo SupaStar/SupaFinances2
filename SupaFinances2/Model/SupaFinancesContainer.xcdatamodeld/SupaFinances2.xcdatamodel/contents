@@ -6,6 +6,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
         <relationship name="stock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StockEntity" inverseName="holds" inverseEntity="StockEntity"/>
     </entity>
     <entity name="MarketStockEntity" representedClassName="MarketStockEntity" syncable="YES" codeGenerationType="class">

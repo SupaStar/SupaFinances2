@@ -13,87 +13,56 @@ import CoreData
 struct HomeView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HomeViewModel
-        
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-//        animation: .default)
-//    private var items: FetchedResults<Item>
-//
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Stock.id, ascending: true)],
-//        animation: .default)
-//    private var stocks: FetchedResults<Stock>
-    
+    @StateObject var settings = Finances()
     // MARK: BODY
     var body: some View {
-        ZStack {
-            VStack {
-                HeaderHomeView(ammount: viewModel.total )
-                
-                TitleSectionView(title: "Mis acciones")
-                NavigationView {
+        NavigationView {
+            ZStack {
+                VStack {
+                    HeaderHomeView(ammount: viewModel.total )
+                    
+                    TitleSectionView(title: "Mis acciones")
                     List {
                         ForEach(viewModel.stocks){
                             stock in
-                            StockItemView(title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
-                        }
+                            NavigationLink(destination: DetailPortfolioStockView(viewModel: DetailPortfolioStockViewModel(stock: stock)), label: {
+                                StockItemView(title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
+                            })//: NAVLINK
+                            
+                        }//:FOR
                         .onDelete(perform: viewModel.deleteStock(offsets:))
                     }//: LIST
                     .padding(.horizontal, -20)
                     .padding(.vertical, -10)
-                }//: NAV
-                .navigationTitle("Mis acciones")
-                
-                Button(action: {
-                    
-                }, label: {
-                    Text("+")
-                        .font(.system(.largeTitle, design: .rounded))
-                        .foregroundColor(textColor)
-                        .offset(x: 0, y: -4)
-                })
-                .frame(width: 60, height: 60)
-                .background(primaryColor)
-                .clipShape(Circle())
-                .padding()
-                .contentShape(Circle())
-            }//: VSTACK
-            
+                    .refreshable {
+                        print("owo")
+                    }
+//                    Button(action: {
+//                        
+//                    }, label: {
+//                        Text("+")
+//                            .font(.system(.largeTitle, design: .rounded))
+//                            .foregroundColor(textColor)
+//                            .offset(x: 0, y: -4)
+//                    })
+//                    .frame(width: 60, height: 60)
+//                    .background(primaryColor)
+//                    .clipShape(Circle())
+//                    .padding()
+//                    .contentShape(Circle())
+                }//: VSTACK
+            }//: ZSTACK
+            .onAppear(){
+                viewModel.loadUsdValue()
+                viewModel.loadStocks()
+            }
             if viewModel.isLoading{
                 LoadingView()
             }
-        }//: ZSTACK
-        .onAppear(){
-            viewModel.loadUsdValue()
-        }
+        }//: NAV
+        .navigationTitle("Mis acciones")
+
     }
-    
-//    private func addItem() {
-//        withAnimation {
-//            let newItem = Item(context: viewContext)
-//            newItem.timestamp = Date()
-//
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
-    
-//    private func deleteItems(offsets: IndexSet) {
-//        withAnimation {
-//            offsets.map { items[$0] }.forEach(viewContext.delete)
-//
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
 }
 
 
@@ -101,6 +70,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(viewModel: HomeViewModel(isPreview: true))
+            .environmentObject(Finances())
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

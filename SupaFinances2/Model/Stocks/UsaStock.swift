@@ -10,16 +10,16 @@
 import Foundation
 
 struct UsaStockResponse: Codable {
-    let price: Decimal
-    let change_point: Decimal
-    let change_percentage: Decimal
+    let price: Double
+    let change_point: Double
+    let change_percentage: Double
     let total_vol: String
 }
 
 class UsaStockViewModel: ObservableObject, Identifiable {
-    let price: Decimal
-    let change_point: Decimal
-    let change_percentage: Decimal
+    let price: Double
+    let change_point: Double
+    let change_percentage: Double
     let total_vol: String
     
     init(usaStock: UsaStockResponse){

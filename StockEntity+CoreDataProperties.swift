@@ -2,7 +2,7 @@
 //  StockEntity+CoreDataProperties
 //  
 //
-//  Created by Obed Martinez on 19/08/23
+//  Created by Obed Martinez on 21/08/23
 //
 
 
@@ -21,10 +21,10 @@ extension StockEntity {
     @NSManaged public var added_date: Date?
     @NSManaged public var country: String?
     @NSManaged public var name: String?
-    @NSManaged public var symbol: String?
-    @NSManaged public var value: Double
     @NSManaged public var price_prom: Double
     @NSManaged public var quantity: Double
+    @NSManaged public var symbol: String?
+    @NSManaged public var value: Double
     @NSManaged public var holds: NSSet?
     @NSManaged public var portfolio: PortafolioEntity?
 

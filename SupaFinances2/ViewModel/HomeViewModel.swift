@@ -18,7 +18,7 @@ class HomeViewModel: ObservableObject {
     @Published var total: Double = 0
     private let dataService: DivisasService = DivisasService()
     private let pruebas: StocksService = StocksService()
-    private let portafolioServ = PortafolioService()
+    private var portafolioServ = PortafolioService()
     
     init(usdValue: ExchangeViewModel? = nil, isPreview: Bool) {
         self.usdValue = usdValue
@@ -28,6 +28,7 @@ class HomeViewModel: ObservableObject {
         loadStocks()
     }
     func loadStocks(){
+        portafolioServ = PortafolioService()
         self.portfolio = portafolioServ.portFolios.first
         stocks = portafolioServ.savedStocks
         total = 0
@@ -52,7 +53,7 @@ class HomeViewModel: ObservableObject {
     
     func deleteStock(offsets: IndexSet) {
         let selectedStocks = offsets.map { stocks[$0] }
-        //        portafolioServ.deleteStocks(stocks: selectedStocks)
+        portafolioServ.deleteStocks(stocks: selectedStocks)
         print(selectedStocks)
     }
     

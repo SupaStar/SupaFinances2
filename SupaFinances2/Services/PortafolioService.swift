@@ -17,6 +17,7 @@ class PortafolioService {
     private let stockEntityName: String = "StockEntity"
     private let holdingEntityName: String = "HoldingEntity"
     
+    @Published var stockSelected: StockEntity?
     @Published var savedStocks: [StockEntity] = []
     @Published var portFolios: [PortafolioEntity] = []
     
@@ -32,8 +33,13 @@ class PortafolioService {
     
     // MARK: PUBLIC
     
-    
-    func addStock(name: String, marketVal: Double, symbol: String,country: String, portfolio: PortafolioEntity){
+    func addStock(name: String, marketVal: Double, symbol: String, country: String, portfolio: PortafolioEntity){
+        if portfolio.stocks?.first(where: { ($0 as? StockEntity)?.symbol == symbol }) is StockEntity {
+            // El símbolo ya existe, no se necesita crear un nuevo objeto
+            print("El símbolo ya está registrado: \(symbol)")
+            // Aquí puedes realizar otras acciones si es necesario
+            return
+        }
         let entity = StockEntity(context: container.viewContext)
         entity.name = name
         entity.added_date = Date()
@@ -44,7 +50,7 @@ class PortafolioService {
         applyChanges()
     }
     
-    func addHold(stock: StockEntity, price: Double, quantity: Double, hold_date: Date){
+    func addHold(stock: StockEntity, price: Double, quantity: Double, hold_date: Date, type: String = "Buy"){
         let entity = HoldingEntity(context: container.viewContext)
         entity.id = UUID()
         entity.date = Date()
@@ -52,9 +58,9 @@ class PortafolioService {
         entity.quantity = quantity
         entity.hold_date = hold_date
         entity.date = Date()
+        entity.type = type.lowercased()
         stock.addToHolds(entity)
-        applyChanges()
-//        refreshStockData(stock: stock)
+        save()
     }
     
     func removeAllStocks(){
@@ -71,18 +77,73 @@ class PortafolioService {
         applyChanges()
     }
     
+    func deleteHolds(holds: [HoldingEntity]) {
+        for hold in holds {
+            container.viewContext.delete(hold)
+        }
+        applyChanges()
+    }
+    
+    func getHolds(stock: StockEntity) -> [HoldingEntity] {
+        guard let stock = findStock(stock: stock, symbol: nil) else {
+            return []
+        }
+        if let holds = stock.holds {
+            var holdsS = holds.allObjects as! [HoldingEntity]
+            holdsS.sort { (hold1, hold2) in
+                return hold1.hold_date! > hold2.hold_date!
+            }
+            return holdsS
+        }
+        return []
+    }
+    
+    func findStock(stock: StockEntity?, symbol: String?) -> StockEntity? {
+        var symbolF = ""
+        if let stock = stock {
+            guard let symbolS = stock.symbol else {
+                return nil
+            }
+            symbolF = symbolS
+        }
+        if let symbol = symbol {
+            symbolF = symbol
+        }
+        if let stockSel = savedStocks.first(where: { $0.symbol == symbolF }) {
+            return stockSel
+        }
+        return nil
+    }
+    
+    func getStocks(portfolio: PortafolioEntity) -> [StockEntity] {
+        var finalStocks: [StockEntity] = []
+        if let stocks = portfolio.stocks {
+            var stocksL = stocks.allObjects as! [StockEntity]
+            stocksL.sort { (stock1, stock2) in
+                return stock1.added_date! < stock2.added_date!
+            }
+            finalStocks = stocksL
+        }
+        return finalStocks
+    }
+    
     // MARK: PRIVATE
     
-    private func refreshStockData(stock: StockEntity){
+    func refreshStockData(stock: StockEntity){
         if let holds = stock.holds {
             let savedHolds = holds.allObjects as! [HoldingEntity]
             var totalPrice: Double = 0
             var totalQuantity: Double = 0
             for hold in savedHolds {
-                totalPrice += hold.price
-                totalQuantity += hold.quantity
+                if hold.type == "buy"{
+                    totalPrice += hold.price * hold.quantity
+                    totalQuantity += hold.quantity
+                } else {
+                    totalPrice -= hold.price * hold.quantity
+                    totalQuantity -= hold.quantity
+                }
             }
-            stock.price_prom = totalPrice / Double(savedHolds.count)
+            stock.price_prom = totalPrice / totalQuantity
             stock.quantity = totalQuantity
             applyChanges()
         }
@@ -119,20 +180,20 @@ class PortafolioService {
             savedStocks.sort { (stock1, stock2) in
                 return stock1.added_date! < stock2.added_date!
             }
-            for stock in savedStocks {
-                if let holds = stock.holds {
-                    let savedHolds = holds.allObjects as! [HoldingEntity]
-                    var totalPrice: Double = 0
-                    var totalQuantity: Double = 0
-                    for hold in savedHolds {
-                        totalPrice += hold.price * hold.quantity
-                        totalQuantity += hold.quantity
-                    }
-                    stock.price_prom = totalPrice / totalQuantity
-                    stock.quantity = totalQuantity
-                    save()
-                }
-            }
+            //            for stock in savedStocks {
+            //                if let holds = stock.holds {
+            //                    let savedHolds = holds.allObjects as! [HoldingEntity]
+            //                    var totalPrice: Double = 0
+            //                    var totalQuantity: Double = 0
+            //                    for hold in savedHolds {
+            //                        totalPrice += hold.price * hold.quantity
+            //                        totalQuantity += hold.quantity
+            //                    }
+            //                    stock.price_prom = totalPrice / totalQuantity
+            //                    stock.quantity = totalQuantity
+            //                    save()
+            //                }
+            //            }
         }
     }
     

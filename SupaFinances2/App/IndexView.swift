@@ -19,7 +19,7 @@ struct IndexView: View {
                 .tabItem{
                     Label("Inicio", systemImage: "house.fill")
                 }
-            SearchView()
+            SearchView(viewModel: SearchViewModel())
                 .tabItem{
                     Label("Prueba", systemImage: "magnifyingglass")
                 }
