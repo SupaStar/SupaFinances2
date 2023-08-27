@@ -30,7 +30,13 @@ struct DetailPortfolioStockView: View {
     var body: some View {
         ZStack {
             VStack {
-                HeaderPortfolioDetailView(name: viewModel.stock?.name ?? "", quantity: viewModel.stock?.quantity ?? 0, priceProm: pricePromVer, total: viewModel.total)
+                HeaderPortfolioDetailView(
+                    name: viewModel.stock?.name ?? "",
+                    quantity: viewModel.stock?.quantity ?? 0,
+                    priceProm: pricePromVer,
+                    total: viewModel.total,
+                    totalMarket: viewModel.totalMercado,
+                    plusMinus: viewModel.plusMinus)
                 List {
                     ForEach(viewModel.holds){
                         hold in
@@ -43,8 +49,6 @@ struct DetailPortfolioStockView: View {
                     }//: FOR
                     .onDelete(perform: viewModel.deleteHolds(offsets:))
                 }//: LIST
-                
-                
                 Spacer()
             }//: VSTACK
             .toolbar(content: {

@@ -12,6 +12,8 @@ class DetailPortfolioStockViewModel: ObservableObject {
     @Published var stock: StockEntity?
     @Published var holds: [HoldingEntity] = []
     @Published var total: Double = 0
+    @Published var totalMercado: Double = 0
+    @Published var plusMinus: Double = 0
     @Published public private(set) var isLoading: Bool = false
     @Published var form: HoldViewModel?
     
@@ -37,12 +39,17 @@ class DetailPortfolioStockViewModel: ObservableObject {
         }
         self.holds = servicePortfolio.getHolds(stock: self.stock!)
         total = 0
+        totalMercado = 0
         for hold in holds {
             if hold.type == "buy" {
                 self.total += hold.price * hold.quantity
             } else {
                 self.total -= hold.price * hold.quantity
             }
+        }
+        if let quantity = stock?.quantity, let price = stock?.value, let price_prom = stock?.price_prom {
+            totalMercado = quantity * price
+            plusMinus = (price/price_prom) - 1
         }
         self.isLoading = false
     }

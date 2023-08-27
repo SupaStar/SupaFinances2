@@ -15,6 +15,38 @@ struct HeaderPortfolioDetailView: View {
     let quantity: Double
     let priceProm: Double
     let total: Double
+    let totalMarket: Double
+    let plusMinus: Double
+    
+    var plusMinusForm: String {
+        let percentageFormatter = NumberFormatter()
+        percentageFormatter.numberStyle = .percent
+        if let formattedPercentage = percentageFormatter.string(from: NSNumber(value: plusMinus)) {
+            return formattedPercentage
+        } else {
+            return ""
+        }
+    }
+    
+    var textoPlus: String {
+        if plusMinus < 0 {
+            return "Minusvalia"
+        } else if plusMinus == 0 {
+            return ""
+        } else {
+            return "Plusvalia"
+        }
+    }
+    
+    var colorPlusMinus: Color {
+        if plusMinus < 0 {
+            return Color.red
+        } else if plusMinus == 0 {
+            return Color.gray
+        } else {
+            return Color.green
+        }
+    }
     
     func valueFormatted(value:Double) -> String {
         let numberFormatter = NumberFormatter()
@@ -42,7 +74,19 @@ struct HeaderPortfolioDetailView: View {
                     .multilineTextAlignment(.trailing)
             }
             .padding(.horizontal, 10)
-            Text("Total: \(valueFormatted(value:total))")
+            HStack {
+                Text("Total: \(valueFormatted(value:total))")
+                    .multilineTextAlignment(.leading)
+                Spacer()
+                Text("Valor de mercado: \(valueFormatted(value:totalMarket))")
+                    .multilineTextAlignment(.trailing)
+            }
+            .padding(.horizontal, 10)
+            HStack{
+                Text("\(textoPlus)")
+                Text("\(plusMinusForm)")
+                    .foregroundColor(colorPlusMinus)
+            }
         }//: VSTACK
         .padding()
     }
@@ -50,7 +94,7 @@ struct HeaderPortfolioDetailView: View {
 
 struct HeaderPortfolioDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderPortfolioDetailView(name: "Fibra Monterrey", quantity: 0, priceProm: 0, total: 120)
+        HeaderPortfolioDetailView(name: "Fibra Monterrey", quantity: 0, priceProm: 0, total: 120, totalMarket: 100, plusMinus: 6)
             .previewLayout(.sizeThatFits)
     }
 }

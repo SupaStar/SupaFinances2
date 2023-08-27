@@ -34,19 +34,22 @@ struct HomeView: View {
                     }//: LIST
                     .padding(.horizontal, -20)
                     .padding(.vertical, -10)
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("+")
-                            .font(.system(.largeTitle, design: .rounded))
-                            .foregroundColor(textColor)
-                            .offset(x: 0, y: -4)
-                    })
-                    .frame(width: 60, height: 60)
-                    .background(primaryColor)
-                    .clipShape(Circle())
-                    .padding()
-                    .contentShape(Circle())
+                    .refreshable {
+                        print("owo")
+                    }
+//                    Button(action: {
+//                        
+//                    }, label: {
+//                        Text("+")
+//                            .font(.system(.largeTitle, design: .rounded))
+//                            .foregroundColor(textColor)
+//                            .offset(x: 0, y: -4)
+//                    })
+//                    .frame(width: 60, height: 60)
+//                    .background(primaryColor)
+//                    .clipShape(Circle())
+//                    .padding()
+//                    .contentShape(Circle())
                 }//: VSTACK
             }//: ZSTACK
             .onAppear(){
