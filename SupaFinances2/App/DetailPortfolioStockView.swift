@@ -15,6 +15,7 @@ struct DetailPortfolioStockView: View {
     @StateObject var settings = Finances()
     @State var isAdding: Bool = false
     @State var isSelling: Bool = false
+    @State var isEditing: Bool = false
     
     var pricePromVer: Double {
         var value = 0.0
@@ -86,14 +87,20 @@ struct DetailPortfolioStockView: View {
         }//: ZSTACK
         .onChange(of: isAdding, perform: {
             value in
-            if value == false {
+            if !value {
                 viewModel.refreshHold()
             }
         })
         .onChange(of: isSelling, perform: {
             value in
-            if value == false {
+            if !value {
                 viewModel.refreshHold()
+            }
+        })
+        .onChange(of: isEditing, perform: {
+            value in
+            if !value {
+                
             }
         })
         .onChange(of: viewModel.form, perform: { value in
