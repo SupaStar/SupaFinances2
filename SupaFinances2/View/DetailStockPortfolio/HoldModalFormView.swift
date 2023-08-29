@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import AlertToast
 
 struct HoldModalFormView: View {
     // MARK: PROPERTIES
@@ -68,6 +69,9 @@ struct HoldModalFormView: View {
             .cornerRadius(8)
             .padding()
         }//: ZSTACK
+        .toast(isPresenting: $viewModel.showToast){
+            AlertToast(displayMode: .banner(.pop), type: .regular , title: viewModel.toastTitle)
+        }//: TOAST
     }
 }
 

@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import AlertToast
 
 struct DetailPortfolioStockView: View {
     // MARK: PROPERTIES
@@ -54,20 +55,24 @@ struct DetailPortfolioStockView: View {
             }//: VSTACK
             .toolbar(content: {
                 Button(action: {
-                    
+                    withAnimation(.easeIn(duration: 0.2)){
+                        isEditing.toggle()
+                    }
                 }, label: {
                     Text("Editar")
                 })
+                
                 Button(action: {
                     withAnimation(.easeIn(duration: 0.2)){
-                        isAdding = true
+                        isAdding.toggle()
                     }
                 }, label: {
                     Image(systemName: "plus")
                 })
+                
                 Button(action: {
                     withAnimation(.easeIn(duration: 0.2)){
-                        isSelling = true
+                        isSelling.toggle()
                     }
                 }, label: {
                     Image(systemName: "minus")
@@ -80,11 +85,18 @@ struct DetailPortfolioStockView: View {
                 HoldModalFormView(viewModel: HoldModalFormViewModel(type: "buy", stock: viewModel.stock), isShowing: $isAdding, form: $viewModel.form)
                     .zIndex(2)
             }
-            if isSelling{
+            if isSelling {
                 HoldModalFormView(viewModel: HoldModalFormViewModel(type: "sell", stock: viewModel.stock), isShowing: $isSelling, form: $viewModel.form)
                     .zIndex(3)
             }
+            if isEditing {
+                EditStockModalView(isShowing: $isEditing,
+                    ctoProm: $viewModel.newCtoProm)
+            }
         }//: ZSTACK
+        .toast(isPresenting: $viewModel.showToast){
+            AlertToast(displayMode: .banner(.slide), type: .complete(Color.green) , title: viewModel.toastTitle)
+        }
         .onChange(of: isAdding, perform: {
             value in
             if !value {
@@ -118,7 +130,6 @@ struct DetailPortfolioStockView: View {
             }
         }
         .toolbar(settings.isSubView ? .hidden : .visible, for: .tabBar)
-        
     }
 }
 

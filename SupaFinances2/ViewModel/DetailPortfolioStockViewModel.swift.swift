@@ -16,6 +16,9 @@ class DetailPortfolioStockViewModel: ObservableObject {
     @Published var plusMinus: Double = 0
     @Published public private(set) var isLoading: Bool = false
     @Published var form: HoldViewModel?
+    @Published var newCtoProm: Double?
+    @Published var showToast: Bool = false
+    @Published var toastTitle: String = ""
     
     private var servicePortfolio: PortafolioService = PortafolioService()
     init(stock: StockEntity?) {
@@ -67,8 +70,11 @@ class DetailPortfolioStockViewModel: ObservableObject {
     func deleteHolds(offsets: IndexSet) {
         let selectedHolds = offsets.map { holds[$0] }
         servicePortfolio.deleteHolds(holds: selectedHolds)
+        showToast.toggle()
+        toastTitle = "Registro eliminado."
         refreshHold()
     }
+    
     func saveHold() {
         isLoading = true
         guard let hold = form else {
@@ -81,7 +87,14 @@ class DetailPortfolioStockViewModel: ObservableObject {
             return
         }
         
+        toastTitle = "Guardado con exito."
+        showToast.toggle()
+        
         servicePortfolio.addHold(stock: self.stock!, price: hold.price, quantity: hold.quantity, hold_date: hold.dateHold, type: hold.type)
         refreshHold()
+    }
+    
+    func editCtoProm() {
+        print(newCtoProm)
     }
 }
