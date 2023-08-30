@@ -127,6 +127,9 @@ class PortafolioService {
         return finalStocks
     }
     
+    func updateValue(stock: StockEntity, value:Double){
+        self.update(entity: stock, newValue: value)
+    }
     // MARK: PRIVATE
     
     func refreshStockData(stock: StockEntity){
@@ -197,9 +200,8 @@ class PortafolioService {
         }
     }
     
-    private func update(entity: StockEntity, newData: StockEntity) {
-        entity.value = newData.value
-        entity.symbol = newData.symbol
+    private func update(entity: StockEntity, newValue: Double) {
+        entity.value = newValue
         applyChanges()
     }
     

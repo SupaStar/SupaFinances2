@@ -16,8 +16,11 @@ class HomeViewModel: ObservableObject {
     @Published var holds: [HoldingEntity] = []
     @Published var portfolio: PortafolioEntity?
     @Published var total: Double = 0
+    @Published var showToast: Bool = false
+    @Published var isToastError: Bool = true
+    @Published var toastError: String = ""
     private let dataService: DivisasService = DivisasService()
-    private let pruebas: StocksService = StocksService()
+    private let stockService: StocksService = StocksService()
     private var portafolioServ = PortafolioService()
     
     init(usdValue: ExchangeViewModel? = nil, isPreview: Bool) {
@@ -28,6 +31,7 @@ class HomeViewModel: ObservableObject {
         loadStocks()
     }
     func loadStocks(){
+//        newValue()
         portafolioServ = PortafolioService()
         self.portfolio = portafolioServ.portFolios.first
         stocks = portafolioServ.savedStocks
@@ -49,11 +53,14 @@ class HomeViewModel: ObservableObject {
 //        }
 //        holds = stock.holds?.allObjects as! [HoldingEntity]
 //    }
-    
+    func newValue() {
+        saveNewValue(symbol: "FMTY14", price: 1)
+    }
     
     func deleteStock(offsets: IndexSet) {
         let selectedStocks = offsets.map { stocks[$0] }
         portafolioServ.deleteStocks(stocks: selectedStocks)
+        loadStocks()
         print(selectedStocks)
     }
     
@@ -74,4 +81,74 @@ class HomeViewModel: ObservableObject {
         })
     }
     
+    func refreshValues() {
+        isLoading = true
+        let dispatchGroup = DispatchGroup()
+        
+        portafolioServ = PortafolioService()
+        self.portfolio = portafolioServ.portFolios.first
+        let stocksSaved = portafolioServ.savedStocks
+        
+        for stock in stocksSaved {
+            dispatchGroup.enter()
+            
+            guard let stockSymbol = stock.symbol else {
+                showAlert(message: "No se pudo obtener información", isError: true)
+                dispatchGroup.leave()
+                continue
+            }
+            
+            if stock.country == "Mexico" {
+                stockService.showMexicanStock(stockSymbol: stockSymbol) { (response, error) in
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    if let error = error {
+                        self.showAlert(message: error, isError: true)
+                        return
+                    }
+                    
+                    guard let response = response else {
+                        return
+                    }
+                    self.saveNewValue(symbol: stockSymbol, price: response.ultimo)
+                }
+            } else {
+                stockService.showUsaStock(stockSymbol: stockSymbol) { (response, error) in
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    if let error = error {
+                        self.showAlert(message: error, isError: true)
+                        return
+                    }
+                    
+                    guard let response = response else {
+                        return
+                    }
+                    self.saveNewValue(symbol: stockSymbol, price: response.price)
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.isLoading = false
+            self.loadStocks()
+        }
+    }
+    
+    func saveNewValue(symbol:String, price: Double){
+        guard let stockEntity = self.portafolioServ.findStock(stock: nil, symbol: symbol) else {
+            showAlert(message: "No se pudo obtener informacion", isError: true)
+            return
+        }
+        self.portafolioServ.updateValue(stock: stockEntity, value: price)
+    }
+    func showAlert(message: String, isError: Bool) {
+        toastError = message
+        isToastError = isError
+        showToast.toggle()
+    }
 }

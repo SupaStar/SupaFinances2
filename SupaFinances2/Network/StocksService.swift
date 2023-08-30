@@ -72,7 +72,6 @@ class StocksService {
             }
             
             do {
-                print(String(data: data, encoding: .utf8)!)
                 let mexicanStockDetail = try JSONDecoder().decode(MexicanStockResponse.self, from: data)
                 completion(mexicanStockDetail.BMV, nil)
             } catch {
