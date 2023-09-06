@@ -15,20 +15,41 @@ struct EditStockModalView: View {
     @EnvironmentObject var app: Finances
     @Binding var isShowing: Bool
     @Binding var ctoProm: Double?
+    @Binding var desiredTitles: Double?
+    @Binding var weekAmmount: Double?
     @State var newCtoPromedio: String = ""
+    @State var newDesiredTitles: String = ""
+    @State var newAmmount: String = ""
     @State var showToast: Bool = false
     @State var toastTitle: String = ""
     // MARK: BODY
     
     func save(){
-        if let priceProm = Double(newCtoPromedio){
-            self.ctoProm = priceProm
-            withAnimation(.easeOut(duration: 0.3)){
-                isShowing = false
+        if !newCtoPromedio.isEmpty {
+            if let priceProm = Double(newCtoPromedio){
+                self.ctoProm = priceProm
+                withAnimation(.easeOut(duration: 0.3)){
+                    isShowing = false
+                }
             }
+            toastTitle = "El nuevo costo no tiene un formato valido."
+            showToast.toggle()
+            return
         }
-        toastTitle = "El nuevo costo no tiene un formato valido."
-        showToast.toggle()
+        if !newDesiredTitles.isEmpty && !newAmmount.isEmpty {
+            if let desiredTitles = Double(newDesiredTitles),
+               let newAmmount = Double(newAmmount) {
+                self.desiredTitles = desiredTitles
+                self.weekAmmount = newAmmount
+                withAnimation(.easeOut(duration: 0.3)){
+                    isShowing = false
+                }
+            }
+            toastTitle = "Revisa el formato de numeros."
+            showToast.toggle()
+            return
+        }
+
     }
     
     var body: some View {
@@ -49,6 +70,11 @@ struct EditStockModalView: View {
                 TextField("Nuevo costo promedio", text: $newCtoPromedio)
                     .keyboardType(.numberPad)
                 
+                TextField("Titulos deseados", text: $newDesiredTitles)
+                    .keyboardType(.numberPad)
+                
+                TextField("Monto de aportaciones", text: $newAmmount)
+                    .keyboardType(.numberPad)
                 //1. Footer
                 Button(action: {
                     save()
@@ -80,7 +106,7 @@ struct EditStockModalView: View {
 
 struct EditStockModalView_Previews: PreviewProvider {
     static var previews: some View {
-        EditStockModalView(isShowing: .constant(true), ctoProm: .constant(0))
+        EditStockModalView(isShowing: .constant(true), ctoProm: .constant(0), desiredTitles: .constant(10), weekAmmount: .constant(200))
             .previewLayout(.sizeThatFits)
     }
 }

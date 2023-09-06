@@ -51,6 +51,12 @@ struct DetailPortfolioStockView: View {
                     }//: FOR
                     .onDelete(perform: viewModel.deleteHolds(offsets:))
                 }//: LIST
+                if viewModel.desiredTitles ?? 0 > 0 && viewModel.weekAmmount ?? 0 > 0 {
+                    FooterFutureView(desired: viewModel.desiredTitles ?? 0,
+                        have: viewModel.stock?.quantity ?? 0,
+                        weekAmmount: viewModel.weekAmmount ?? 0,
+                        price: viewModel.stock?.value ?? 0)
+                }
                 Spacer()
             }//: VSTACK
             .toolbar(content: {
@@ -91,7 +97,9 @@ struct DetailPortfolioStockView: View {
             }
             if isEditing {
                 EditStockModalView(isShowing: $isEditing,
-                    ctoProm: $viewModel.newCtoProm)
+                    ctoProm: $viewModel.newCtoProm,
+                    desiredTitles: $viewModel.desiredTitles,
+                    weekAmmount: $viewModel.weekAmmount)
             }
         }//: ZSTACK
         .toast(isPresenting: $viewModel.showToast){

@@ -89,6 +89,16 @@ class PortafolioService {
         save()
     }
     
+    func editDesiredTitles(stock: StockEntity, newAmmount: Double){
+        stock.desired_titles = newAmmount
+        save()
+    }
+    
+    func editAmmount(stock: StockEntity, newAmmount: Double){
+        stock.week_ammount = newAmmount
+        save()
+    }
+    
     func getHolds(stock: StockEntity) -> [HoldingEntity] {
         guard let stock = findStock(stock: stock, symbol: nil) else {
             return []

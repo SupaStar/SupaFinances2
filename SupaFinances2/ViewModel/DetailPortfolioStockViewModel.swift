@@ -19,6 +19,8 @@ class DetailPortfolioStockViewModel: ObservableObject {
     @Published var newCtoProm: Double?
     @Published var showToast: Bool = false
     @Published var toastTitle: String = ""
+    @Published var desiredTitles: Double?
+    @Published var weekAmmount: Double?
     
     private var servicePortfolio: PortafolioService = PortafolioService()
     init(stock: StockEntity?) {
@@ -40,6 +42,9 @@ class DetailPortfolioStockViewModel: ObservableObject {
             isLoading = false
             return
         }
+        self.newCtoProm = stock?.price_prom
+        self.desiredTitles = stock?.desired_titles
+        self.weekAmmount = stock?.week_ammount
         self.holds = servicePortfolio.getHolds(stock: self.stock!)
         total = 0
         totalMercado = 0
@@ -100,10 +105,13 @@ class DetailPortfolioStockViewModel: ObservableObject {
             isLoading = false
             return
         }
-        guard let newCtoProm = self.newCtoProm else {
-            return
+        if let newCtoProm = self.newCtoProm {
+            servicePortfolio.editPriceProm(stock: self.stock!, newPrice: newCtoProm)
         }
-        servicePortfolio.editPriceProm(stock: self.stock!, newPrice: newCtoProm)
+        if let weekAmmount = self.weekAmmount, let desiredTitles = self.desiredTitles {
+            servicePortfolio.editAmmount(stock: self.stock!, newAmmount: weekAmmount)
+            servicePortfolio.editDesiredTitles(stock: self.stock!, newAmmount: desiredTitles)
+        }
         refreshHold(isEdit: true)
     }
 }
