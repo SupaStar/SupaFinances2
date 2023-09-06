@@ -57,13 +57,13 @@ class DetailPortfolioStockViewModel: ObservableObject {
         self.isLoading = false
     }
     
-    func refreshHold() {
+    func refreshHold(isEdit: Bool = false) {
         isLoading = true
         if !refreshStock() {
             isLoading = false
             return
         }
-        servicePortfolio.refreshStockData(stock: self.stock!)
+        servicePortfolio.refreshStockData(stock: self.stock!, isEdit: isEdit)
         loadHolds()
     }
     
@@ -95,6 +95,15 @@ class DetailPortfolioStockViewModel: ObservableObject {
     }
     
     func editCtoProm() {
-        print(newCtoProm)
+        isLoading = true
+        if !refreshStock() {
+            isLoading = false
+            return
+        }
+        guard let newCtoProm = self.newCtoProm else {
+            return
+        }
+        servicePortfolio.editPriceProm(stock: self.stock!, newPrice: newCtoProm)
+        refreshHold(isEdit: true)
     }
 }

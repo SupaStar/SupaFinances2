@@ -2,7 +2,7 @@
 //  PortafolioEntity+CoreDataProperties
 //  
 //
-//  Created by Obed Martinez on 21/08/23
+//  Created by Obed Martinez on 06/09/23
 //
 
 

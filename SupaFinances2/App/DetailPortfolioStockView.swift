@@ -112,7 +112,7 @@ struct DetailPortfolioStockView: View {
         .onChange(of: isEditing, perform: {
             value in
             if !value {
-                
+                viewModel.editCtoProm()
             }
         })
         .onChange(of: viewModel.form, perform: { value in

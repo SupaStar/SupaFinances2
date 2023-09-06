@@ -84,6 +84,11 @@ class PortafolioService {
         applyChanges()
     }
     
+    func editPriceProm(stock: StockEntity, newPrice: Double){
+        stock.price_prom = newPrice
+        save()
+    }
+    
     func getHolds(stock: StockEntity) -> [HoldingEntity] {
         guard let stock = findStock(stock: stock, symbol: nil) else {
             return []
@@ -132,7 +137,7 @@ class PortafolioService {
     }
     // MARK: PRIVATE
     
-    func refreshStockData(stock: StockEntity){
+    func refreshStockData(stock: StockEntity, isEdit: Bool = false){
         if let holds = stock.holds {
             let savedHolds = holds.allObjects as! [HoldingEntity]
             var totalPrice: Double = 0
@@ -146,7 +151,9 @@ class PortafolioService {
                     totalQuantity -= hold.quantity
                 }
             }
-            stock.price_prom = totalPrice / totalQuantity
+            if !isEdit {
+                stock.price_prom = totalPrice / totalQuantity
+            }
             stock.quantity = totalQuantity
             applyChanges()
         }
