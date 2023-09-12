@@ -39,12 +39,10 @@ class HomeViewModel: ObservableObject {
         var needRefresh: Bool = false
         for stock in stocks {
             total = stock.price_prom * stock.quantity
-            var plusMinus = ((stock.last_price - stock.value) / stock.last_price) * 100
-            print("cambio = \(plusMinus)")
-            if stock.modify_date ?? Date() < today {
-                needRefresh = true
-                print("debes actualizar ")
-                print("\(needRefresh)")
+            if let modifyDate = stock.modify_date {
+                if !Calendar.current.isDate(today, equalTo: modifyDate, toGranularity: .day) {
+                    needRefresh = true
+                }
             }
         }
         if needRefresh {
