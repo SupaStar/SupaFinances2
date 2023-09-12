@@ -11,7 +11,7 @@ import SwiftUI
 
 struct StockItemView: View {
     // MARK: PROPERTIES
-    @State var variation: Double = -100.0
+    @State var variation: Double
     let title: String
     let symbol: String
     let value: Double
@@ -99,7 +99,7 @@ struct StockItemView: View {
 struct StockItemView_Previews: PreviewProvider {
     
     static var previews: some View {
-        StockItemView(title: "aaaa", symbol: "aaa", value: 11.33, cto_prom: 10.0, quantity: 100)
+        StockItemView(variation: 10, title: "aaaa", symbol: "aaa", value: 11.33, cto_prom: 10.0, quantity: 100)
             .previewLayout(.sizeThatFits)
     }
 }

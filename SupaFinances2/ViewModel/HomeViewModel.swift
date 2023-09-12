@@ -19,6 +19,7 @@ class HomeViewModel: ObservableObject {
     @Published var showToast: Bool = false
     @Published var isToastError: Bool = true
     @Published var toastError: String = ""
+    private let today: Date = Date()
     private let dataService: DivisasService = DivisasService()
     private let stockService: StocksService = StocksService()
     private var portafolioServ = PortafolioService()
@@ -31,28 +32,26 @@ class HomeViewModel: ObservableObject {
         loadStocks()
     }
     func loadStocks(){
-//        newValue()
         portafolioServ = PortafolioService()
         self.portfolio = portafolioServ.portFolios.first
         stocks = portafolioServ.savedStocks
         total = 0
+        var needRefresh: Bool = false
         for stock in stocks {
             total = stock.price_prom * stock.quantity
+            var plusMinus = ((stock.last_price - stock.value) / stock.last_price) * 100
+            print("cambio = \(plusMinus)")
+            if stock.modify_date ?? Date() < today {
+                needRefresh = true
+                print("debes actualizar ")
+                print("\(needRefresh)")
+            }
         }
-//        tests()
+        if needRefresh {
+            refreshValues()
+        }
     }
-//    func tests(){
-//        portafolioServ.removeAllStocks()
-//        guard let portfolio = self.portfolio else {
-//            return
-//        }
-//        portafolioServ.addStock(name: "MTy", marketVal: 11.44, symbol: "mty15", country: "MX", portfolio: portfolio)
-//        let stock = stocks.first
-//        if let stock = stock {
-//            portafolioServ.addHold(stock: stock, price: 18.0, quantity: 20, hold_date: Date())
-//        }
-//        holds = stock.holds?.allObjects as! [HoldingEntity]
-//    }
+
     func newValue() {
         saveNewValue(symbol: "FMTY14", price: 1)
     }

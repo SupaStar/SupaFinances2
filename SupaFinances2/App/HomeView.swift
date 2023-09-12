@@ -15,6 +15,11 @@ struct HomeView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HomeViewModel
     @StateObject var settings = Finances()
+    
+    func calculatePlusMinus(initialPrice: Double, price: Double) -> Double {
+        let plusMinus = ((initialPrice - price) / initialPrice) * 100
+        return plusMinus
+    }
     // MARK: BODY
     var body: some View {
         NavigationView {
@@ -27,7 +32,7 @@ struct HomeView: View {
                         ForEach(viewModel.stocks){
                             stock in
                             NavigationLink(destination: DetailPortfolioStockView(viewModel: DetailPortfolioStockViewModel(stock: stock)), label: {
-                                StockItemView(title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
+                                StockItemView(variation: calculatePlusMinus(initialPrice: stock.last_price, price: stock.value), title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
                             })//: NAVLINK
                             
                         }//:FOR

@@ -46,6 +46,8 @@ class PortafolioService {
         entity.value = marketVal
         entity.symbol = symbol
         entity.country = country
+        entity.last_price = marketVal
+        entity.modify_date = Date()
         portfolio.addToStocks(entity)
         applyChanges()
     }
@@ -142,7 +144,7 @@ class PortafolioService {
         return finalStocks
     }
     
-    func updateValue(stock: StockEntity, value:Double){
+    func updateValue(stock: StockEntity, value: Double){
         self.update(entity: stock, newValue: value)
     }
     // MARK: PRIVATE
@@ -218,7 +220,9 @@ class PortafolioService {
     }
     
     private func update(entity: StockEntity, newValue: Double) {
+        entity.last_price = entity.value
         entity.value = newValue
+        entity.modify_date = Date()
         applyChanges()
     }
     
