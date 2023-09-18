@@ -68,13 +68,13 @@ struct EditStockModalView: View {
                 
                 //1. Body
                 TextField("Nuevo costo promedio", text: $newCtoPromedio)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                 
                 TextField("Titulos deseados", text: $newDesiredTitles)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                 
                 TextField("Monto de aportaciones", text: $newAmmount)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                 //1. Footer
                 Button(action: {
                     save()

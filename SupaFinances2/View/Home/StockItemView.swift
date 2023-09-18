@@ -11,6 +11,7 @@ import SwiftUI
 
 struct StockItemView: View {
     // MARK: PROPERTIES
+    @Environment(\.colorScheme) var colorScheme
     @State var variation: Double
     let title: String
     let symbol: String
@@ -90,7 +91,7 @@ struct StockItemView: View {
 //        .background(Color.gray)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(.black, lineWidth: 1)
+                .stroke(colorScheme == .light ? Color.black : Color.white, lineWidth: 1)
         )        
 //        .frame(height: 60)
     }

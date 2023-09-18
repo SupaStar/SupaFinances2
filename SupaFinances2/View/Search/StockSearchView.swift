@@ -11,6 +11,8 @@ import SwiftUI
 
 struct StockSearchView: View {
     // MARK: PROPERTIES
+    @Environment(\.colorScheme) var colorScheme
+
     @State var isSaved: Bool
     let title: String
     let symbol: String
@@ -42,7 +44,7 @@ struct StockSearchView: View {
         )
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color.white)
+                .fill(colorScheme == .light ? Color.white : Color.black)
                 .shadow(color: Color(UIColor.lightGray), radius: 0.4, x: 3, y: 3)
         )
         .padding()
