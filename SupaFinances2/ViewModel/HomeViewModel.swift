@@ -16,8 +16,12 @@ class HomeViewModel: ObservableObject {
     @Published var holds: [HoldingEntity] = []
     @Published var portfolio: PortafolioEntity?
     @Published var total: Double = 0
+    @Published var showToast: Bool = false
+    @Published var isToastError: Bool = true
+    @Published var toastError: String = ""
+    private let today: Date = Date()
     private let dataService: DivisasService = DivisasService()
-    private let pruebas: StocksService = StocksService()
+    private let stockService: StocksService = StocksService()
     private var portafolioServ = PortafolioService()
     
     init(usdValue: ExchangeViewModel? = nil, isPreview: Bool) {
@@ -32,28 +36,28 @@ class HomeViewModel: ObservableObject {
         self.portfolio = portafolioServ.portFolios.first
         stocks = portafolioServ.savedStocks
         total = 0
+        var needRefresh: Bool = false
         for stock in stocks {
-            total = stock.price_prom * stock.quantity
+            total += stock.price_prom * stock.quantity
+            if let modifyDate = stock.modify_date {
+                if !Calendar.current.isDate(today, equalTo: modifyDate, toGranularity: .day) {
+                    needRefresh = true
+                }
+            }
         }
-//        tests()
+        if needRefresh {
+            refreshValues()
+        }
     }
-//    func tests(){
-//        portafolioServ.removeAllStocks()
-//        guard let portfolio = self.portfolio else {
-//            return
-//        }
-//        portafolioServ.addStock(name: "MTy", marketVal: 11.44, symbol: "mty15", country: "MX", portfolio: portfolio)
-//        let stock = stocks.first
-//        if let stock = stock {
-//            portafolioServ.addHold(stock: stock, price: 18.0, quantity: 20, hold_date: Date())
-//        }
-//        holds = stock.holds?.allObjects as! [HoldingEntity]
-//    }
-    
+
+    func newValue() {
+        saveNewValue(symbol: "FMTY14", price: 1)
+    }
     
     func deleteStock(offsets: IndexSet) {
         let selectedStocks = offsets.map { stocks[$0] }
         portafolioServ.deleteStocks(stocks: selectedStocks)
+        loadStocks()
         print(selectedStocks)
     }
     
@@ -74,52 +78,74 @@ class HomeViewModel: ObservableObject {
         })
     }
     
-    func pruebaBusqueda(){
+    func refreshValues() {
         isLoading = true
-        self.pruebas.searchStocks(search: "fmty", completion: { (response, error) in
-            if let error = error {
-                print(error)
-            }
-            print("busqueda \(response)")
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.pruebaMexico()
-            }
-        })
-    }
-    func pruebaMexico(){
-        isLoading = true
-        self.pruebas.showMexicanStock(stockSymbol: "fmty14", completion: { (response, error) in
-            if let error = error {
-                print(error)
-                return
+        let dispatchGroup = DispatchGroup()
+        
+        portafolioServ = PortafolioService()
+        self.portfolio = portafolioServ.portFolios.first
+        let stocksSaved = portafolioServ.savedStocks
+        
+        for stock in stocksSaved {
+            dispatchGroup.enter()
+            
+            guard let stockSymbol = stock.symbol else {
+                showAlert(message: "No se pudo obtener información", isError: true)
+                dispatchGroup.leave()
+                continue
             }
             
-            guard let response = response else {
-                return
+            if stock.country == "Mexico" {
+                stockService.showMexicanStock(stockSymbol: stockSymbol) { (response, error) in
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    if let error = error {
+                        self.showAlert(message: error, isError: true)
+                        return
+                    }
+                    
+                    guard let response = response else {
+                        return
+                    }
+                    self.saveNewValue(symbol: stockSymbol, price: response.ultimo)
+                }
+            } else {
+                stockService.showUsaStock(stockSymbol: stockSymbol) { (response, error) in
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    
+                    if let error = error {
+                        self.showAlert(message: error, isError: true)
+                        return
+                    }
+                    
+                    guard let response = response else {
+                        return
+                    }
+                    self.saveNewValue(symbol: stockSymbol, price: response.price)
+                }
             }
-            print("mexico \(response)")
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.pruebaUsa()
-            }
-        })
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.isLoading = false
+            self.loadStocks()
+        }
     }
-    func pruebaUsa(){
-        isLoading = true
-        self.pruebas.showUsaStock(stockSymbol: "voo", completion: { (response, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let response = response else {
-                return
-            }
-            print("usa \(response)")
-            DispatchQueue.main.async {
-                self.isLoading = false
-            }
-        })
+    
+    func saveNewValue(symbol:String, price: Double){
+        guard let stockEntity = self.portafolioServ.findStock(stock: nil, symbol: symbol) else {
+            showAlert(message: "No se pudo obtener informacion", isError: true)
+            return
+        }
+        self.portafolioServ.updateValue(stock: stockEntity, value: price)
+    }
+    func showAlert(message: String, isError: Bool) {
+        toastError = message
+        isToastError = isError
+        showToast.toggle()
     }
 }

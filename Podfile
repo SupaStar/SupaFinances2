@@ -6,7 +6,9 @@ target 'SupaFinances2' do
   use_frameworks!
 
   # Pods for SupaFinances2
-
+  pod 'AlertToast'
+  
+  
   target 'SupaFinances2Tests' do
     inherit! :search_paths
     # Pods for testing

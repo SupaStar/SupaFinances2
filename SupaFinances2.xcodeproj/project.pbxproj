@@ -14,6 +14,7 @@
 		093D85922A96D09200E78DB3 /* HoldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D85912A96D09200E78DB3 /* HoldViewModel.swift */; };
 		093D85942A9928AA00E78DB3 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D85932A9928AA00E78DB3 /* SearchViewModel.swift */; };
 		094D4C262A9A7CD100E4889C /* HoldTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D4C252A9A7CD100E4889C /* HoldTypeEnum.swift */; };
+		094D4C282A9D1A6200E4889C /* EditStockModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D4C272A9D1A6200E4889C /* EditStockModalView.swift */; };
 		0966479D2A8D537B00D8E147 /* SupaFinances2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */; };
 		0966479F2A8D537B00D8E147 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966479E2A8D537B00D8E147 /* HomeView.swift */; };
 		096647A12A8D537C00D8E147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096647A02A8D537C00D8E147 /* Assets.xcassets */; };
@@ -29,10 +30,11 @@
 		09687E0C2A90276500BAA7B8 /* StockSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09687E0B2A90276500BAA7B8 /* StockSearchView.swift */; };
 		09687E372A90931B00BAA7B8 /* PortafolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09687E362A90931B00BAA7B8 /* PortafolioService.swift */; };
 		09687E3D2A91AF3400BAA7B8 /* DetailPortfolioStockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09687E3C2A91AF3400BAA7B8 /* DetailPortfolioStockView.swift */; };
-		09687E412A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift.swift */; };
+		09687E412A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift */; };
 		09760A382A9437A800214D69 /* HoldModalFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09760A372A9437A800214D69 /* HoldModalFormView.swift */; };
 		09760A3A2A943E3A00214D69 /* HoldModalFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09760A392A943E3A00214D69 /* HoldModalFormViewModel.swift */; };
 		09913F3D2A956C8C00ECDDF1 /* HeaderPortfolioDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09913F3C2A956C8C00ECDDF1 /* HeaderPortfolioDetailView.swift */; };
+		09CB80D32AA903D1004097A0 /* FooterFutureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB80D22AA903D1004097A0 /* FooterFutureView.swift */; };
 		09E6A10C2A8D83C500927CAC /* StockItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10B2A8D83C500927CAC /* StockItemView.swift */; };
 		09E6A10E2A8D8A2500927CAC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10D2A8D8A2500927CAC /* Constant.swift */; };
 		09E6A1102A8D901A00927CAC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6A10F2A8D901A00927CAC /* LoadingView.swift */; };
@@ -74,6 +76,7 @@
 		093D85912A96D09200E78DB3 /* HoldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldViewModel.swift; sourceTree = "<group>"; };
 		093D85932A9928AA00E78DB3 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		094D4C252A9A7CD100E4889C /* HoldTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldTypeEnum.swift; sourceTree = "<group>"; };
+		094D4C272A9D1A6200E4889C /* EditStockModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStockModalView.swift; sourceTree = "<group>"; };
 		096647992A8D537B00D8E147 /* SupaFinances2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaFinances2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0966479C2A8D537B00D8E147 /* SupaFinances2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupaFinances2App.swift; sourceTree = "<group>"; };
 		0966479E2A8D537B00D8E147 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -92,10 +95,11 @@
 		09687E0B2A90276500BAA7B8 /* StockSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockSearchView.swift; sourceTree = "<group>"; };
 		09687E362A90931B00BAA7B8 /* PortafolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortafolioService.swift; sourceTree = "<group>"; };
 		09687E3C2A91AF3400BAA7B8 /* DetailPortfolioStockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPortfolioStockView.swift; sourceTree = "<group>"; };
-		09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPortfolioStockViewModel.swift.swift; sourceTree = "<group>"; };
+		09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPortfolioStockViewModel.swift; sourceTree = "<group>"; };
 		09760A372A9437A800214D69 /* HoldModalFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldModalFormView.swift; sourceTree = "<group>"; };
 		09760A392A943E3A00214D69 /* HoldModalFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldModalFormViewModel.swift; sourceTree = "<group>"; };
 		09913F3C2A956C8C00ECDDF1 /* HeaderPortfolioDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPortfolioDetailView.swift; sourceTree = "<group>"; };
+		09CB80D22AA903D1004097A0 /* FooterFutureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterFutureView.swift; sourceTree = "<group>"; };
 		09E6A10B2A8D83C500927CAC /* StockItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockItemView.swift; sourceTree = "<group>"; };
 		09E6A10D2A8D8A2500927CAC /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		09E6A10F2A8D901A00927CAC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -331,7 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				09E6A1162A8EA08300927CAC /* HomeViewModel.swift */,
-				09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift.swift */,
+				09687E402A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift */,
 				09760A392A943E3A00214D69 /* HoldModalFormViewModel.swift */,
 				093D85932A9928AA00E78DB3 /* SearchViewModel.swift */,
 			);
@@ -344,6 +348,8 @@
 				09FAB0CC2A93E99E00672B48 /* HoldItemView.swift */,
 				09760A372A9437A800214D69 /* HoldModalFormView.swift */,
 				09913F3C2A956C8C00ECDDF1 /* HeaderPortfolioDetailView.swift */,
+				094D4C272A9D1A6200E4889C /* EditStockModalView.swift */,
+				09CB80D22AA903D1004097A0 /* FooterFutureView.swift */,
 			);
 			path = DetailStockPortfolio;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 				096647952A8D537B00D8E147 /* Sources */,
 				096647962A8D537B00D8E147 /* Frameworks */,
 				096647972A8D537B00D8E147 /* Resources */,
+				BAF4A62351F0D5A5EF0D0D19 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -406,6 +413,7 @@
 				096647B42A8D537C00D8E147 /* Sources */,
 				096647B52A8D537C00D8E147 /* Frameworks */,
 				096647B62A8D537C00D8E147 /* Resources */,
+				6978E059A1BB8646B6768F4E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -487,6 +495,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6978E059A1BB8646B6768F4E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SupaFinances2-SupaFinances2UITests/Pods-SupaFinances2-SupaFinances2UITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SupaFinances2-SupaFinances2UITests/Pods-SupaFinances2-SupaFinances2UITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SupaFinances2-SupaFinances2UITests/Pods-SupaFinances2-SupaFinances2UITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		796F4C6799B4B4C562B81E32 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -531,6 +556,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BAF4A62351F0D5A5EF0D0D19 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SupaFinances2/Pods-SupaFinances2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SupaFinances2/Pods-SupaFinances2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SupaFinances2/Pods-SupaFinances2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E59ACD66B265DA6AA388D159 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -560,11 +602,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09687E412A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift.swift in Sources */,
+				09687E412A91C14F00BAA7B8 /* DetailPortfolioStockViewModel.swift in Sources */,
 				09E6A10C2A8D83C500927CAC /* StockItemView.swift in Sources */,
 				096647A92A8D537C00D8E147 /* SupaFinancesContainer.xcdatamodeld in Sources */,
 				09913F3D2A956C8C00ECDDF1 /* HeaderPortfolioDetailView.swift in Sources */,
 				09687E042A9017E800BAA7B8 /* FontStyles.swift in Sources */,
+				094D4C282A9D1A6200E4889C /* EditStockModalView.swift in Sources */,
 				094D4C262A9A7CD100E4889C /* HoldTypeEnum.swift in Sources */,
 				096647A62A8D537C00D8E147 /* Persistence.swift in Sources */,
 				093D85942A9928AA00E78DB3 /* SearchViewModel.swift in Sources */,
@@ -591,6 +634,7 @@
 				09E6A10E2A8D8A2500927CAC /* Constant.swift in Sources */,
 				09E6A1142A8E9EFE00927CAC /* UsdMxnModel.swift in Sources */,
 				09687E092A9022AC00BAA7B8 /* TitleSectionView.swift in Sources */,
+				09CB80D32AA903D1004097A0 /* FooterFutureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

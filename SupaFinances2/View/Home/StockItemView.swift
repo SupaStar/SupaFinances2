@@ -11,7 +11,8 @@ import SwiftUI
 
 struct StockItemView: View {
     // MARK: PROPERTIES
-    @State var variation: Double = -100.0
+    @Environment(\.colorScheme) var colorScheme
+    @State var variation: Double
     let title: String
     let symbol: String
     let value: Double
@@ -90,7 +91,7 @@ struct StockItemView: View {
 //        .background(Color.gray)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(.black, lineWidth: 1)
+                .stroke(colorScheme == .light ? Color.black : Color.white, lineWidth: 1)
         )        
 //        .frame(height: 60)
     }
@@ -99,7 +100,7 @@ struct StockItemView: View {
 struct StockItemView_Previews: PreviewProvider {
     
     static var previews: some View {
-        StockItemView(title: "aaaa", symbol: "aaa", value: 11.33, cto_prom: 10.0, quantity: 100)
+        StockItemView(variation: 10, title: "aaaa", symbol: "aaa", value: 11.33, cto_prom: 10.0, quantity: 100)
             .previewLayout(.sizeThatFits)
     }
 }

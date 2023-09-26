@@ -46,6 +46,8 @@ class PortafolioService {
         entity.value = marketVal
         entity.symbol = symbol
         entity.country = country
+        entity.last_price = marketVal
+        entity.modify_date = Date()
         portfolio.addToStocks(entity)
         applyChanges()
     }
@@ -82,6 +84,21 @@ class PortafolioService {
             container.viewContext.delete(hold)
         }
         applyChanges()
+    }
+    
+    func editPriceProm(stock: StockEntity, newPrice: Double){
+        stock.price_prom = newPrice
+        save()
+    }
+    
+    func editDesiredTitles(stock: StockEntity, newAmmount: Double){
+        stock.desired_titles = newAmmount
+        save()
+    }
+    
+    func editAmmount(stock: StockEntity, newAmmount: Double){
+        stock.week_ammount = newAmmount
+        save()
     }
     
     func getHolds(stock: StockEntity) -> [HoldingEntity] {
@@ -127,9 +144,12 @@ class PortafolioService {
         return finalStocks
     }
     
+    func updateValue(stock: StockEntity, value: Double){
+        self.update(entity: stock, newValue: value)
+    }
     // MARK: PRIVATE
     
-    func refreshStockData(stock: StockEntity){
+    func refreshStockData(stock: StockEntity, isEdit: Bool = false){
         if let holds = stock.holds {
             let savedHolds = holds.allObjects as! [HoldingEntity]
             var totalPrice: Double = 0
@@ -143,7 +163,9 @@ class PortafolioService {
                     totalQuantity -= hold.quantity
                 }
             }
-            stock.price_prom = totalPrice / totalQuantity
+            if !isEdit {
+                stock.price_prom = totalPrice / totalQuantity
+            }
             stock.quantity = totalQuantity
             applyChanges()
         }
@@ -197,9 +219,10 @@ class PortafolioService {
         }
     }
     
-    private func update(entity: StockEntity, newData: StockEntity) {
-        entity.value = newData.value
-        entity.symbol = newData.symbol
+    private func update(entity: StockEntity, newValue: Double) {
+        entity.last_price = entity.value
+        entity.value = newValue
+        entity.modify_date = Date()
         applyChanges()
     }
     

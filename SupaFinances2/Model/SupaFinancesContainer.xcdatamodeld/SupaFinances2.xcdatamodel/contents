@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G90" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HoldingEntity" representedClassName="HoldingEntity" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="hold_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -25,11 +25,15 @@
     <entity name="StockEntity" representedClassName="StockEntity" syncable="YES" codeGenerationType="class">
         <attribute name="added_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="desired_titles" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="last_price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="modify_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="price_prom" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
         <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="week_ammount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="holds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HoldingEntity" inverseName="stock" inverseEntity="HoldingEntity"/>
         <relationship name="portfolio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PortafolioEntity" inverseName="stocks" inverseEntity="PortafolioEntity"/>
     </entity>

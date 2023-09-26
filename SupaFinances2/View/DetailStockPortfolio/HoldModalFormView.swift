@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import AlertToast
 
 struct HoldModalFormView: View {
     // MARK: PROPERTIES
@@ -36,10 +37,10 @@ struct HoldModalFormView: View {
             VStack(spacing: 10){
                 Text(viewModel.type.lowercased() == "buy" ? "Compra" : "Venta")
                 TextField("Numero de titulos", text: $viewModel.quantityS)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                 
                 TextField("Precio por titulo", text: $viewModel.priceS)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                 
                 DatePicker(selection: $viewModel.dateHold, displayedComponents: .date){
                     Label("Hold date", systemImage: "calendar.badge.plus")
@@ -68,6 +69,9 @@ struct HoldModalFormView: View {
             .cornerRadius(8)
             .padding()
         }//: ZSTACK
+        .toast(isPresenting: $viewModel.showToast){
+            AlertToast(displayMode: .banner(.pop), type: .regular , title: viewModel.toastTitle)
+        }//: TOAST
     }
 }
 

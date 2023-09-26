@@ -2,7 +2,7 @@
 //  StockEntity+CoreDataClass
 //  
 //
-//  Created by Obed Martinez on 21/08/23
+//  Created by Obed Martinez on 11/09/23
 //
 
 

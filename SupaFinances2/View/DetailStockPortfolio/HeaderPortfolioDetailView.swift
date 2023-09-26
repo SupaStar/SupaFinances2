@@ -19,6 +19,9 @@ struct HeaderPortfolioDetailView: View {
     let plusMinus: Double
     
     var plusMinusForm: String {
+        if plusMinus.isNaN || plusMinus.isInfinite {
+            return "0%"
+        }
         let percentageFormatter = NumberFormatter()
         percentageFormatter.numberStyle = .percent
         if let formattedPercentage = percentageFormatter.string(from: NSNumber(value: plusMinus)) {
@@ -41,10 +44,10 @@ struct HeaderPortfolioDetailView: View {
     var colorPlusMinus: Color {
         if plusMinus < 0 {
             return Color.red
-        } else if plusMinus == 0 {
-            return Color.gray
-        } else {
+        } else if plusMinus > 0 && plusMinus.isFinite {
             return Color.green
+        }else {
+            return Color.gray
         }
     }
     

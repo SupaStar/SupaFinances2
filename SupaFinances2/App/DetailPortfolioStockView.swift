@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import AlertToast
 
 struct DetailPortfolioStockView: View {
     // MARK: PROPERTIES
@@ -15,6 +16,7 @@ struct DetailPortfolioStockView: View {
     @StateObject var settings = Finances()
     @State var isAdding: Bool = false
     @State var isSelling: Bool = false
+    @State var isEditing: Bool = false
     
     var pricePromVer: Double {
         var value = 0.0
@@ -49,24 +51,34 @@ struct DetailPortfolioStockView: View {
                     }//: FOR
                     .onDelete(perform: viewModel.deleteHolds(offsets:))
                 }//: LIST
+                if viewModel.desiredTitles ?? 0 > 0 && viewModel.weekAmmount ?? 0 > 0 {
+                    FooterFutureView(desired: viewModel.desiredTitles ?? 0,
+                        have: viewModel.stock?.quantity ?? 0,
+                        weekAmmount: viewModel.weekAmmount ?? 0,
+                        price: viewModel.stock?.value ?? 0)
+                }
                 Spacer()
             }//: VSTACK
             .toolbar(content: {
                 Button(action: {
-                    
+                    withAnimation(.easeIn(duration: 0.2)){
+                        isEditing.toggle()
+                    }
                 }, label: {
                     Text("Editar")
                 })
+                
                 Button(action: {
                     withAnimation(.easeIn(duration: 0.2)){
-                        isAdding = true
+                        isAdding.toggle()
                     }
                 }, label: {
                     Image(systemName: "plus")
                 })
+                
                 Button(action: {
                     withAnimation(.easeIn(duration: 0.2)){
-                        isSelling = true
+                        isSelling.toggle()
                     }
                 }, label: {
                     Image(systemName: "minus")
@@ -79,21 +91,36 @@ struct DetailPortfolioStockView: View {
                 HoldModalFormView(viewModel: HoldModalFormViewModel(type: "buy", stock: viewModel.stock), isShowing: $isAdding, form: $viewModel.form)
                     .zIndex(2)
             }
-            if isSelling{
+            if isSelling {
                 HoldModalFormView(viewModel: HoldModalFormViewModel(type: "sell", stock: viewModel.stock), isShowing: $isSelling, form: $viewModel.form)
                     .zIndex(3)
             }
+            if isEditing {
+                EditStockModalView(isShowing: $isEditing,
+                    ctoProm: $viewModel.newCtoProm,
+                    desiredTitles: $viewModel.desiredTitles,
+                    weekAmmount: $viewModel.weekAmmount)
+            }
         }//: ZSTACK
+        .toast(isPresenting: $viewModel.showToast){
+            AlertToast(displayMode: .banner(.slide), type: .complete(Color.green) , title: viewModel.toastTitle)
+        }
         .onChange(of: isAdding, perform: {
             value in
-            if value == false {
+            if !value {
                 viewModel.refreshHold()
             }
         })
         .onChange(of: isSelling, perform: {
             value in
-            if value == false {
+            if !value {
                 viewModel.refreshHold()
+            }
+        })
+        .onChange(of: isEditing, perform: {
+            value in
+            if !value {
+                viewModel.editCtoProm()
             }
         })
         .onChange(of: viewModel.form, perform: { value in
@@ -111,7 +138,6 @@ struct DetailPortfolioStockView: View {
             }
         }
         .toolbar(settings.isSubView ? .hidden : .visible, for: .tabBar)
-        
     }
 }
 

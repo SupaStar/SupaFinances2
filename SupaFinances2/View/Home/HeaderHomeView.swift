@@ -24,8 +24,8 @@ struct HeaderHomeView: View {
     }
     // MARK: BODY
     var body: some View {
-        VStack(spacing: 20){
-            Text("Monto total aproximado")
+        VStack(spacing: 7){
+            Text("Monto total invertido")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(textColor)

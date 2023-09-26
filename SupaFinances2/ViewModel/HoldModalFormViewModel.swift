@@ -16,6 +16,8 @@ class HoldModalFormViewModel: ObservableObject {
     @Published var dateHold: Date = Date()
     @Published var type: String
     @Published var stock: StockEntity?
+    @Published var showToast: Bool = false
+    @Published var toastTitle: String = ""
     var saved: ((_ hold: HoldViewModel) -> Void)?
 
     // MARK: INJECTIONS
@@ -30,6 +32,8 @@ class HoldModalFormViewModel: ObservableObject {
     
     func save() {
         guard let quantity = Double(quantityS), let price = Double(priceS) else {
+            toastTitle = "Error al convertir"
+            showToast.toggle()
             return
         }
         let holdVM = HoldViewModel(quantity: quantity, price: price, type: type, dateHold: dateHold)

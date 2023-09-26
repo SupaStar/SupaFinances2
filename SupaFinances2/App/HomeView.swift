@@ -9,11 +9,17 @@
 
 import SwiftUI
 import CoreData
+import AlertToast
 
 struct HomeView: View {
     // MARK: PROPERTIES
     @ObservedObject var viewModel: HomeViewModel
     @StateObject var settings = Finances()
+    
+    func calculatePlusMinus(initialPrice: Double, price: Double) -> Double {
+        let plusMinus = ((initialPrice - price) / initialPrice) * 100
+        return plusMinus
+    }
     // MARK: BODY
     var body: some View {
         NavigationView {
@@ -26,7 +32,7 @@ struct HomeView: View {
                         ForEach(viewModel.stocks){
                             stock in
                             NavigationLink(destination: DetailPortfolioStockView(viewModel: DetailPortfolioStockViewModel(stock: stock)), label: {
-                                StockItemView(title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
+                                StockItemView(variation: calculatePlusMinus(initialPrice: stock.last_price, price: stock.value), title: stock.name ?? "", symbol: stock.symbol ?? "", value: stock.value, cto_prom: stock.price_prom, quantity: stock.quantity)
                             })//: NAVLINK
                             
                         }//:FOR
@@ -35,7 +41,7 @@ struct HomeView: View {
                     .padding(.horizontal, -20)
                     .padding(.vertical, -10)
                     .refreshable {
-                        print("owo")
+                        viewModel.refreshValues()
                     }
 //                    Button(action: {
 //                        
@@ -52,6 +58,11 @@ struct HomeView: View {
 //                    .contentShape(Circle())
                 }//: VSTACK
             }//: ZSTACK
+            .toast(isPresenting: $viewModel.showToast, alert: {
+                AlertToast(displayMode: .banner(.pop),
+                    type: viewModel.isToastError ? .error(Color.red) : .regular,
+                    title: viewModel.toastError)
+            })
             .onAppear(){
                 viewModel.loadUsdValue()
                 viewModel.loadStocks()
